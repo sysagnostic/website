@@ -1,0 +1,21 @@
+baseURL = "https://sysagnostic.com"
+languageCode = 'en-us'
+theme = "coming-soon"
+
+[params]
+    title = " " 
+    description = ""
+    favicon = ""
+    message = "COMING SOON!" 
+    release = "January 6, 2025" 
+    background = "" 
+
+socialIcons = [
+    {name = "email", url = "info@sysagnostic.com"},      
+    {name = "facebook", url = "https://facebook.com/sysagnostic/"},    
+    {name = "github", url = "https://github.com/sysagnostic/"},    
+    {name = "linkedin", url = "https://linkedin.com/company/sysagnostic/"},    
+] 
+
+[params.twitter]
+	enable = false 
