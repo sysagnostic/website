@@ -1,0 +1,43 @@
+pricing:
+  enable : true
+  title : Our Service Plans
+  pricing_table :
+    - name : Gold
+      price : €200*
+      unit : month/product
+      services:
+        - L3 Support (DEV +€200)*
+        - Intermittent Ticketing Support
+        - 4hrs SLA in CET B.Hours (€50/ticket)*
+        - No Call Support
+        - Issue Resolution on T&M basis
+        - '* excl. VAT'
+      button:
+        label : "Contact Us"
+        link : "#contact"
+    - name : Platinum
+      price : €500*
+      unit : month/product
+      services:
+        - L3 Support (DEV +€200)*
+        - 24/7 Ticketing Support
+        - 1hr SLA Always (€50/ticket)*
+        - 24/7 Call Support (€150/call)*
+        - Issue Resolution on T&M basis
+        - '* excl. VAT'
+      button:
+        label : "Contact Us"
+        link : "#contact"
+    - name : T&M
+      price : €500*
+      unit : day**
+      services:
+        - Any of Our Services
+        - '* excl. VAT'
+        - "** Billed by 15 min segments"
+        - "-"
+        - "-"
+        - "-"
+      button:
+        label : "Contact Us"
+        link : "#contact"

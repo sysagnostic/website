@@ -1,0 +1,10 @@
+banner:
+  enable : true
+  bg_image_webp : "images/backgrounds/hero-area.webp"
+  bg_image : "images/backgrounds/hero-area.jpg"
+  title : "Open source confidence"
+  content : "Reshaping enterprise ecosystems to free and open source cloud solutions."
+  button:
+    enable : true
+    label : "Explore Us"
+    link : "#services"

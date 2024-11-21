@@ -1,0 +1,18 @@
+contact:
+  enable : true
+  title : Contact Us
+  subtitle : Contact Details
+  content : Please let us know how we may help your business succeed.
+  contact_list:
+    - icon : ti-location-pin
+      info : "European Economic Area (HU)"
+    - icon : ti-email
+      info : "Email: info@sysagnostic.com"
+  contact_form:
+    enable : true
+    form_action : "https://formspree.io/f/mgvejagz"
+    name : "Your Name"
+    email : "Your Email"
+    subject : "Subject"
+    message : "Message"
+    submit : "Submit"
