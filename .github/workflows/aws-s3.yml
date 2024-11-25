@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - develop
+      - www1
+      - www2
+      - www3
 
 jobs:
   deploy:
@@ -31,7 +34,7 @@ jobs:
         with:
           args: --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          AWS_S3_BUCKET: 'www1.sysagnostic.com'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
           AWS_REGION: 'eu-north-1'
@@ -45,4 +48,4 @@ jobs:
           aws-region: eu-north-1
           invalidation-path: |
             /*
-          distribution-id: ${{ secrets.DISTRIBUTION_ID }}
+          distribution-id: 'E1LWPUFOLABYYH'
