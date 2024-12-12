@@ -1,21 +1,25 @@
 baseURL = "https://sysagnostic.com"
 languageCode = 'en-us'
-theme = "coming-soon"
+description = 'sysagnostic website'
+theme = "hugo-theme-shell"
 
-[params]
-    title = "www2" 
-    description = ""
-    favicon = ""
-    message = "COMING SOON!!!" 
-    release = "January 7, 2025" 
-    background = "" 
+[Params]
+  [Params.Terminal]
+  userName = "root"
+  pcName = "sysagnostic"
+  workDir = "build"
+  profile = "README.md"
+  description = "/description.md"
+  ps1Delay = 0
+  stdoutDelay = 0
+  commandDelay = 40
+  titleDelay = 0
+  contentDelay = 0
 
-socialIcons = [
-    {name = "email", url = "info@sysagnostic.com"},      
-    {name = "facebook", url = "https://facebook.com/sysagnostic/"},    
-    {name = "github", url = "https://github.com/sysagnostic/"},    
-    {name = "linkedin", url = "https://linkedin.com/company/sysagnostic/"},    
-] 
-
-[params.twitter]
-	enable = false 
+  [Params.Tree]
+  folderName = "activities"
+  files = [ 
+    ["blog", "/blog"],
+    ["resume", "/resume"],
+    ["services", "/services"],
+  ]
