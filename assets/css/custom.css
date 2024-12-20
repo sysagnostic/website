@@ -303,7 +303,7 @@ a:hover {
   text-transform: capitalize;
   font-weight: 700;
   font-size: 38px;
-  color: #fff;
+  color: #DBDBDB;
 }
 
 .title h2 span {
@@ -2306,4 +2306,53 @@ figcaption {
 .post-single-content img {
   max-width:100%;
   max-height:100%;
+}
+
+
+/* about team - resume */
+div.team-content h2 {
+  color: #DBDBDB;
+  text-align: left;
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 26px;
+}
+div.team-content h2:before {
+  content: "";
+  display: inline-block;
+  margin-right:1%;
+  width: 50px;
+  height: 6px;
+  background-color: #9A8DD9;
+}
+
+/* Definitions */
+div.team-content dt {
+  float: left;
+  clear: left;
+  width: 17%;
+  font-weight: bold;
+}
+div.team-content dd {
+  text-align: left;
+  margin-left: 40%;
+  margin-bottom:20px;
+}
+div.team-content p {
+  margin-top:0;
+  margin-bottom:7px;
+}
+
+/* Blockquotes */
+div.team-content blockquote {
+  text-align: center
+}
+
+/* Horizontal separators */
+div.team-content hr {
+  color: #A6A6A6;
+}
+
+div.team-content table {
+  width: 100%;
 }
