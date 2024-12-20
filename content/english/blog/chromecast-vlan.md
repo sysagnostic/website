@@ -4,7 +4,8 @@ title: Streaming Plex content across VLANs to Google Chromecast
 description: Case study how to implement L2 network separation between Chromecast clients and devices
 publishDate: 2024-07-21
 date: 2024-12-13
-image_webp: images/blog/chromecast-vlan.webp
+Image_webp: images/blog/chromecast-vlan-cover.webp
+image: images/blog/chromecast-vlan-cover.jpg
 tags:
   - firewall
   - pfSense
@@ -34,7 +35,7 @@ This was my first impression when I stumbled upon the computer network explorato
 
 My data link layer is sectioned into several VLANs based on data confidentiality and connected device security concerns. There is a lot of complexity in the network (IEEE 802.3q trunks, Proxmox virtualization, VLAN-aware bridging, etc). The complex and irrelevant details are abstracted away in the drawings. The relevant VLAN topology is as follows:
 
-![Network topology](/images/blog/chromecast-vlan.svg)
+![Network topology](/images/blog/chromecast-vlan-overview.svg)
 
 `VLAN100` is `HOME` and `VLAN300` is the `IOT` data link network. pfSense provides routing and firewall functionality between the two IP networks living in the different VLANs. Long story short, laptop may contact the Chromecast device via the following path and vice versa:
 

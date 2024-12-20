@@ -10,6 +10,8 @@
   translation: About author
 - id: authorsPosts
   translation: Author's posts
+- id: aboutTeam
+  translation: About team
 - id: all
   translation: All
 - id: about
