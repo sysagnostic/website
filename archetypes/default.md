@@ -10,6 +10,9 @@ publishDate: null
 #date: 2024-12-13
 date: null
 
+Image_webp: images/blog/something.webp
+image: images/blog/something.jpg
+
 #tags:
 #  - firewall
 #  - pfSense
