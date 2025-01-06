@@ -75,6 +75,8 @@ AWS CloudFront's caching functionality is the cost-effective solution for our st
 - CloudFront has an egress free-tier data transfer plan
 - S3 egress data transfer costs around <u>1,000 times more</u> per GB even when compared to CloudFront's non-free-tier prices
 
+![CDN distributed static website](/images/blog/how-its-made-cloudarch.svg)
+
 Since our company provides global services we do not apply CloudFront price class restrictions to the website distribution. Our website may be accessed with a similar latency from the USA, Germany, Hungary or Japan. This means by applying our non-discriminating CDN policy we accept the fact that our website's TCO may become higher if visited regularly from eg. Japan that belongs to a more expensive country as per CloudFront's pricing policy.
 
 So CloudFront CDN serves our website and we store the geo-cache origin files in S3. As a European company we opted to store our data inside the borders of the European Union. This means we could place our S3 bucket in the following AWS regions:
