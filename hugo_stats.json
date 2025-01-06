@@ -42,6 +42,7 @@
       "strong",
       "textarea",
       "title",
+      "u",
       "ul"
     ],
     "classes": [
@@ -196,6 +197,8 @@
       "body",
       "certifications",
       "cf-submit",
+      "cicd",
+      "cloud-infrastructure",
       "conclusion",
       "contact",
       "contact-form",
@@ -221,7 +224,9 @@
       "services",
       "sorry-something-went-wrong",
       "subject",
-      "team"
+      "team",
+      "website-development",
+      "why-go-static"
     ]
   }
 }
