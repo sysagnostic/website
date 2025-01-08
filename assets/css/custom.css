@@ -454,6 +454,17 @@ a:hover {
   left: 0;
 }
 
+.hero-area .btn-transparent {
+  background: #594C99;
+}
+
+.hero-area .btn-transparent:hover,
+.hero-area .btn-transparent:focus {
+  background-color: #9A8DD9;
+  border: 1px solid transparent;
+  color: #DBDBDB;
+}
+
 .hero-area .block {
   text-align: center;
   z-index: 99;
@@ -802,6 +813,7 @@ a:hover {
   border: 1px solid rgba(236, 239, 241, 0.07);
   padding-bottom: 30px;
   margin-bottom: 15px;
+  background-color: rgba(41, 47, 54, .3);
 }
 
 .price-title {
@@ -839,6 +851,10 @@ a:hover {
 .pricing li:last-child {
   border-bottom: 1px solid rgba(236, 239, 241, 0.07);
   margin-bottom: 20px;
+}
+
+.pricing li:nth-child(2n+1) {
+  background-color: rgba(41, 47, 54, 0.3);
 }
 
 .pricing li:nth-child(2n) {

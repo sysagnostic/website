@@ -1,5 +1,5 @@
 ---
-title: "Tamas Rebeli-Szabo"
+title: "Tamas Rebeli"
 image_webp: images/team/tamas-rebeli.webp
 image: images/team/tamas-rebeli.jpg
 email: "tamas.rebeli@sysagnostic.com"

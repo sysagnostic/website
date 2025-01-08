@@ -5,8 +5,8 @@ title: Isolating resource consumption for PostgreSQL instances in Linux
 description: Overview of core Linux techniques, and using systemd to set resource limits per PostgreSQL instance
 publishDate: 2025-01-15
 date: 2024-01-08
-Image_webp: images/portfolio/postgresql.webp
-image: images/portfolio/postgresql.jpg
+Image_webp: images/blog/isolating-postgres-instances-cover.webp
+image: images/blog/isolating-postgres-instances-cover.jpg
 tags:
   - Linux
   - cgroups
