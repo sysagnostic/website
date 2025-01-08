@@ -6,12 +6,13 @@ pricing:
       price : €200*
       unit : month/product
       services:
-        - L3 Support (DEV +€200)*
-        - Intermittent Ticketing Support
-        - 4hrs SLA in CET B.Hours (€50/ticket)*
-        - No Call Support
-        - Issue Resolution on T&M basis
-        - '* excl. VAT'
+        - L3 Support (DEV** +€1000*)
+        - 8x5 Ticketing Support in CET
+        - 4hrs SLA
+        - '-'
+        - Ticket Resolution on T&M basis
+        - '*excl. VAT'
+        - '**for Wildfly only'
       button:
         label : "Contact Us"
         link : "#contact"
@@ -19,25 +20,27 @@ pricing:
       price : €500*
       unit : month/product
       services:
-        - L3 Support (DEV +€200)*
-        - 24/7 Ticketing Support
-        - 1hr SLA Always (€50/ticket)*
-        - 24/7 Call Support (€150/call)*
-        - Issue Resolution on T&M basis
-        - '* excl. VAT'
+        - L3 Support (DEV** +€1000*)
+        - 24x7 Ticketing Support
+        - 1hr SLA
+        - 24x7 Call Support
+        - Ticket Resolution on T&M basis
+        - '*excl. VAT'
+        - '**for Wildfly only'
       button:
         label : "Contact Us"
         link : "#contact"
     - name : T&M
-      price : €500*
+      price : €1000*
       unit : day**
       services:
         - Any of Our Services
-        - '* excl. VAT'
-        - "** Billed by 15 min segments"
         - "-"
         - "-"
         - "-"
+        - '-'
+        - "*excl. VAT"
+        - "**billed by 15 min segments"
       button:
         label : "Contact Us"
         link : "#contact"

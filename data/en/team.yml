@@ -2,7 +2,7 @@ team:
   enable: true
   title: Our Team
   team_member :
-    - name: Tamas Rebeli-Szabo
+    - name: Tamas Rebeli
       image_webp: images/team/tamas-rebeli.webp
       image: images/team/tamas-rebeli.jpg
       designation: CEO/Founder/DevSecOps engineer

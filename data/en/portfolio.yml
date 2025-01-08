@@ -2,6 +2,17 @@ portfolio:
   enable: true
   title: We Love FOSS and Cloud
   portfolio_item :
+    - name: WildFly
+      image: images/portfolio/wildfly.jpg
+      image_webp: images/portfolio/wildfly.webp
+      categories:
+        - L3 Support
+        - DEV Support
+        - Reduce Costs
+        - Optimize Performance
+        - Harden Infrastructure
+      content: A powerful, modular, & lightweight open source Jakarta (formerly Java EE) application server.
+      link: "https://www.wildfly.org/about/"
     - name: AlmaLinux OS
       image: images/portfolio/almalinux.jpg
       image_webp: images/portfolio/almalinux.webp
@@ -87,14 +98,3 @@ portfolio:
         - L3 Support
       content: VMware alternative open-source KVM based enterprise virtualization platform.
       link: "https://www.proxmox.com/en/proxmox-virtual-environment/overview"
-    - name: WildFly
-      image: images/portfolio/wildfly.jpg
-      image_webp: images/portfolio/wildfly.webp
-      categories:
-        - L3 Support
-        - DEV Support
-        - Reduce Costs
-        - Optimize Performance
-        - Harden Infrastructure
-      content: A powerful, modular, & lightweight open source Jakarta (formerly Java EE) application server.
-      link: "https://www.wildfly.org/about/"
