@@ -81,23 +81,6 @@ Hungarian
 :   **Native**
 
 
-Education
-----------
-2012-2014
-:   **MSc, Computer Science Engineer**; Budapest University of Technology and Economics
-
-    fault tolerant engineering, verification of critical system
-
-    *[Supporting error propagation modeling with Java PathFinder](https://www.researchgate.net/publication/262484672_Supporting_error_propagation_modeling_with_Java_PathFinder)*
-
-2008-2012
-:   **BSc, Computer Engineer**; Budapest University of Technology and Economics
-
-    generic computer science bachelor course
-
-    *Java EE based social network development*
-
-
 Certifications
 ----------
 2024
@@ -116,3 +99,20 @@ Certifications
 :   **[CKAD: Certified Kubernetes Application Developer](https://training.linuxfoundation.org/certification/verify/)**; The Linux Foundation
 
     *Certification ID: CKAD-1900-001845-0100*
+
+
+Education
+----------
+2012-2014
+:   **MSc, Computer Science Engineer**; Budapest University of Technology and Economics
+
+    fault tolerant engineering, verification of critical system
+
+    *[Supporting error propagation modeling with Java PathFinder](https://www.researchgate.net/publication/262484672_Supporting_error_propagation_modeling_with_Java_PathFinder)*
+
+2008-2012
+:   **BSc, Computer Engineer**; Budapest University of Technology and Economics
+
+    generic computer science bachelor course
+
+    *Java EE based social network development*
