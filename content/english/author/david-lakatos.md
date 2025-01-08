@@ -1,6 +1,7 @@
 ---
 title: "David Lakatos"
-image: "images/team/team-2.jpg"
+image_webp: images/team/david-lakatos.webp
+image: images/team/david-lakatos.jpg
 email: "david.lakatos@sysagnostic.com"
 social:
   - icon : ti-linkedin
@@ -9,5 +10,4 @@ social:
     link : "https://github.com/dlakatos847"
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sit amet vulputate augue. Duis auctor lacus id vehicula gravida. Nam suscipit vitae purus et laoreet.
-Donec nisi dolor, consequat vel pretium id, auctor in dui. Nam iaculis, neque ac ullamcorper.
+Computer Science Engineer MSc. 12+ years consulting background. Software developer, solution architect, DevSecOps engineer. Certified in Linux, K8s and AWS technologies. Linux, IT security and FOSS enthusiast.
