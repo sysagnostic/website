@@ -16,10 +16,10 @@ service:
       content: We believe that a proof of concept is more valuable than any slideshow. Hire us to show you in your systems how cloud and free and open source enterprise software is able to serve your business needs.
     - name: Automate Infrastructure
       icon: ti-control-play
-      content: Sysagnostic is ready to help you implement a new infrastructure as code ecosystem, maintain an existing one or extend its outreach via our infrastructure code development services.
+      content: Sysagnostic is ready to help you implement a new Infrastructure as Code ecosystem, maintain an existing one or extend its outreach via our infrastructure code development services.
     - name: Optimize Performance
       icon: ti-rocket
       content: System performance depends on numerous technologies, architecture concepts, networking aspects, etc. Our colorful track record provides the holistic mindset required to tune your systems.
     - name: Harden Infrastructure
       icon: ti-rocket
-      content: Systems hardening demands a methodical approach to audit, identify, close, and control potential security vulnerabilities throughout your organization.
+      content: Systems hardening is often overlooked. Let us apply our methodical approach to audit, identify, close, and control potential security vulnerabilities throughout your organization.

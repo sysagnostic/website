@@ -10,7 +10,7 @@ portfolio:
         - DEV Support
         - Reduce Costs
         - Optimize Performance
-        - Harden Infrastructure
+        - Infrastructure Hardening
       content: A powerful, modular, & lightweight open source Jakarta (formerly Java EE) application server.
       link: "https://www.wildfly.org/about/"
     - name: AlmaLinux OS
@@ -19,7 +19,7 @@ portfolio:
       categories :
         - L3 Support
         - Reduce Costs
-        - Harden Infrastructure
+        - Infrastructure Hardening
       content: 100% Red Hat Enterprise Linux® compatible free Linux OS for the community, by the community.
       link: "https://almalinux.org/"
     - name: Debian
