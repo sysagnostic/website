@@ -28,7 +28,7 @@ portfolio:
       categories :
         - L3 Support
         - Reduce Costs
-        - Harden Infrastructure
+        - Infrastructure Hardening
       content: Debian is one of the oldest operating systems based on the Linux kernel established in 1993.
       link: "https://www.debian.org/"
     - name: Rocky Linux
@@ -37,7 +37,7 @@ portfolio:
       categories:
         - Reduce Costs
         - L3 Support
-        - Harden Infrastructure
+        - Infrastructure Hardening
       content: Open-source enterprise operating system designed to be 100% compatible with Red Hat Enterprise Linux®.
     - name: OpenTofu
       image: images/portfolio/opentofu.jpg
@@ -77,7 +77,7 @@ portfolio:
         - L3 Support
         - Reduce Costs
         - Optimize Performance
-        - Harden Infrastructure
+        - Infrastructure Hardening
       content: OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol.
       link: "https://www.openldap.org/"
     - name: PostgreSQL
@@ -87,7 +87,7 @@ portfolio:
         - L3 Support
         - Reduce Costs
         - Optimize Performance
-        - Harden Infrastructure
+        - Infrastructure Hardening
       content: Powerful & open source object-relational database system with over 35 years of active development.
       link: "https://www.postgresql.org/"
     - name: Proxmox VE

@@ -20,6 +20,6 @@ service:
     - name: Optimize Performance
       icon: ti-rocket
       content: System performance depends on numerous technologies, architecture concepts, networking aspects, etc. Our colorful track record provides the holistic mindset required to tune your systems.
-    - name: Harden Infrastructure
+    - name: Infrastructure Hardening
       icon: ti-rocket
       content: Systems hardening is often overlooked. Let us apply our methodical approach to audit, identify, close, and control potential security vulnerabilities throughout your organization.
