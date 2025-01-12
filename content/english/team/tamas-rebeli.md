@@ -13,17 +13,17 @@ social:
 
 Experience
 ----------
-Jul 2025 — now
+2025–now
 :   **DevSecOps Engineer**; Sysagnostic
         
         
-Jun 2018 — now
+2018–now
 :   **Course Instructor**; Webváltó Kft.
 
     Courses in PostgreSQL Administration, Linux Administration
 
 
-Oct 2023 — Dec 2024
+2023–2024
 :   **PostgreSQL System Architect (contractor)**; Allianz Technology SE
 
     Design and execution of PostgreSQL mass migration in Microsoft Azure
@@ -31,7 +31,7 @@ Oct 2023 — Dec 2024
     *Azure Database for PostgreSQL Flexible Server; Ansible, Terraform, GitHub Actions*
 
 
-Feb 2021 — Jun 2022
+2021–2022
 :   **PostgreSQL System Architect (contractor)**; Hungarian Central Statistical Office
 
     PostgreSQL HA cluster design and implementation
@@ -39,14 +39,14 @@ Feb 2021 — Jun 2022
     *PostgreSQL; PgPool-II; Linux*
 
 
-Sep 2019 — Jun 2022
+2019–2022
 :   **PostgreSQL System Architect (contractor)**; Allianz Technology SE 
 
     PostgreSQL on-prem platform design and implementation
     
     *PostgreSQL; Ansible; New Relic; Red Hat Linux*
 
-Sep 2018 — now
+2018–now
 :   **PostgreSQL Support Engineer (contractor)**; for various companies via Webváltó Kft.
 
     Database support (on-call)
@@ -54,7 +54,7 @@ Sep 2018 — now
     *PostgreSQL, EnterpriseDB*
         
 
-Feb 2018 — Aug 2019 
+2018–2019 
 :   **Senior System Engineer (contractor)**; Erste Bank Hungary Zrt.
 
     Infrastructure design and implementation on PSD2 project
@@ -62,13 +62,13 @@ Feb 2018 — Aug 2019
     *Axway API Gateway, OpenSpan IAS and Gateway; Linux*
 
 
-Sep 2016 — Nov 2017
+2016–2017
 :   **Middleware System Administrator (contractor)**; Erste Bank Hungary Zrt.
 
     *Oracle Weblogic*
 
 
-May 2015 — Nov 2016
+2015–2016
 :   **System Engineer (contractor)**; T-Systems Magyarország Zrt.
 
     Infrastructure implementation for a public sector project 
@@ -76,7 +76,7 @@ May 2015 — Nov 2016
     *Oracle API Gateway, OpenLDAP; Linux*
 
 
-Jul 2011 — Jun 2016
+2011–2016
 :   **Database Support Engineer**; Webváltó Kft.
 
     Emergency hotline support services (on-call)
@@ -84,7 +84,7 @@ Jul 2011 — Jun 2016
     *Oracle RAC, Oracle DataGuard; Linux, HP-UX, AIX*
 
 
-Aug 2012 — Jul 2014
+2012–2014
 :   **System Engineer (contractor)**; Deutsche WertpapierService Bank AG
 
      Infrastructure support
@@ -115,21 +115,21 @@ Certifications
 :   **[Oracle Weblogic Server 12c Certified Implementation Specialist](https://catalog-education.oracle.com/pls/certview/sharebadge?id=9ED7840B9DDB6CE3765B720EC789D00272CFF07D768A98CBC53C8DFD873E66EA)**; Oracle
 
 2022
-:   **[Oracle Cloud Infrastructure Foundations 2021 Associate certification](https://catalog-education.oracle.com/pls/certview/sharebadge?id=ACA04602712DDD19A5AF55474682BCBE3D948090DEDAC376A870A2D84731F8CC)**; Oracle
+:   **[Oracle Cloud Infrastructure Foundations 2021 Associate](https://catalog-education.oracle.com/pls/certview/sharebadge?id=ACA04602712DDD19A5AF55474682BCBE3D948090DEDAC376A870A2D84731F8CC)**; Oracle
 
 
 2022
 :   **[EnterpriseDB Certified PostgreSL 13 Associate](https://www.credly.com/badges/7df5f7e8-0b85-4750-9244-9dbd020e0677)**; EDB
 
 
-2016—2019
+2016–2019
 :  **MikroTik Certified Engineer**; MikroTik
 
-MTCNA (1607NA396), MTCWE (1610WE057), MTCUME (1801UME1766), MTCTCE (1810TCE1908), MTCRE (1810RE3044), MTCIPv6E (1810IPv6E3060) MTCSE (1905SE4060)
+MTCNA (1607NA396), MTCWE (1610WE057), MTCUME (1801UME1766), MTCTCE (1810TCE1908), MTCRE (1810RE3044), MTCIPv6E (1810IPv6E3060,  MTCSE (1905SE4060)
 
 
 2012
-:   **[Oracle Enterprise Manager Certified Implementation Specialist (12c))](https://www.credly.com/badges/c209dd95-b33b-45a2-a017-649e75325b8b)**; Oracle
+:   **[Oracle Enterprise Manager Certified Implementation Specialist (12c)](https://www.credly.com/badges/c209dd95-b33b-45a2-a017-649e75325b8b)**; Oracle
 
 
 Education
