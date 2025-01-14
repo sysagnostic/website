@@ -1,0 +1,58 @@
+baseURL: https://www3.sysagnostic.com/
+title: sysagnostic
+theme: meghna-hugo
+timeZone: Europe/Budapest
+pagination:
+  pagerSize: 6
+summaryLength: 15
+hasCJKLanguage: false
+outputs:
+  home:
+    - HTML
+    - RSS
+imaging:
+  quality: 90
+  resampleFilter: lanczos
+caches:
+  images:
+    dir: :resourceDir/_gen
+    maxAge: 720h
+  assets:
+    dir: :resourceDir/_gen
+    maxAge: 720h
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+Languages:
+  en:
+    menu:
+      main:
+        - name: about
+          url: '#about'
+          weight: 1
+        - name: services
+          url: '#services'
+          weight: 2
+        - name: portfolio
+          url: '#portfolio'
+          weight: 3
+        - name: team
+          url: '#team'
+          weight: 4
+        - name: pricing
+          url: '#pricing'
+          weight: 5
+        - name: blog
+          url: '#blog'
+          weight: 6
+        - name: contact
+          url: '#contact'
+          weight: 7
+    languageName: En
+    languageCode: en-us
+    contentDir: content/english
+    params:
+      weight: 1
+      home: Home
+      copyright: Copyright &copy; 2024 Developed by [sysagnostic](https://www.sysagnostic.com)

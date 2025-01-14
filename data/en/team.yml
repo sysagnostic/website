@@ -1,0 +1,28 @@
+team:
+  enable: true
+  title: Our Team
+  team_member :
+    - name: Tamas Rebeli-Szabo
+      image_webp: images/team/team-1.webp
+      image: images/team/team-1.jpg
+      designation: CEO/Founder/DevSecOps engineer
+      content: Computer Science Engineer MSc. 13+ years consulting background. Black belt Oracle+PostgreSQL DBA & educator. Experienced middleware DevSecOps engineer. Linux, IT security, IDM and FOSS enthusiast.
+      social :
+        - icon: ti-linkedin
+          link: "https://www.linkedin.com/in/tam%C3%A1s-r%C3%A9beli-szab%C3%B3-69511469/"
+        - icon: ti-github
+          link: "https://github.com/rblst"
+    - name: David Lakatos
+      image_webp: images/team/team-2.webp
+      image: images/team/team-2.jpg
+      designation: CEO/Founder/DevSecOps engineer
+      content: Computer Science Engineer MSc. 12+ years consulting background. Software developer, solution architect, DevSecOps engineer. Certified in Linux, K8s and AWS technologies. Linux, IT security and FOSS enthusiast.
+      social :
+        - icon: ti-linkedin
+          link: "https://www.linkedin.com/in/david-lakatos/"
+        - icon: ti-github
+          link: "https://github.com/dlakatos847"
+        - icon: ti-calendar
+          link: "https://calendar.app.google/amRgwSG3aDCNSr679"
+        - icon: ti-key
+          link: "https://keys.openpgp.org/search?q=david.lakatos%40sysagnostic.com"
