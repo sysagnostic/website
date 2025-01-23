@@ -5,8 +5,8 @@ title: "How it's made: static website running on AWS"
 description: Case study how sysagnostic runs its own Hugo based static website on the Amazon Web Services cloud landscaped by OpenTofu.
 publishDate: 2025-01-04
 date: null
-Image_webp: images/backgrounds/hero-area.webp
-image: images/backgrounds/hero-area.jpg
+Image_webp: images/blog/static-website-cover.webp
+image: images/blog/static-website-cover.png
 tags:
   - aws
   - s3

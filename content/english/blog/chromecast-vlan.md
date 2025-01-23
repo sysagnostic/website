@@ -6,7 +6,7 @@ description: Case study how to implement L2 network separation between Chromecas
 publishDate: 2024-07-21
 date: 2024-12-13
 Image_webp: images/blog/chromecast-vlan-cover.webp
-image: images/blog/chromecast-vlan-cover.jpg
+image: images/blog/chromecast-vlan-cover.png
 tags:
   - firewall
   - pfSense

@@ -6,7 +6,7 @@ description: Overview of core Linux techniques, and using systemd to set resourc
 publishDate: 2025-01-15
 date: 2024-01-08
 Image_webp: images/blog/isolating-postgres-instances-cover.webp
-image: images/blog/isolating-postgres-instances-cover.jpg
+image: images/blog/isolating-postgres-instances-cover.png
 tags:
 - Linux
 - cgroups
