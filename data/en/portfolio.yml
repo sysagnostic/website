@@ -3,7 +3,7 @@ portfolio:
   title: We Love FOSS and Cloud
   portfolio_item :
     - name: WildFly
-      image: images/portfolio/wildfly.jpg
+      image: images/portfolio/wildfly.png
       image_webp: images/portfolio/wildfly.webp
       categories:
         - L3 Support
@@ -14,7 +14,7 @@ portfolio:
       content: A powerful, modular, & lightweight open source Jakarta (formerly Java EE) application server.
       link: "https://www.wildfly.org/about/"
     - name: AlmaLinux OS
-      image: images/portfolio/almalinux.jpg
+      image: images/portfolio/almalinux.png
       image_webp: images/portfolio/almalinux.webp
       categories :
         - L3 Support
@@ -23,7 +23,7 @@ portfolio:
       content: 100% Red Hat Enterprise Linux® compatible free Linux OS for the community, by the community.
       link: "https://almalinux.org/"
     - name: Debian
-      image: images/portfolio/debian.jpg
+      image: images/portfolio/debian.png
       image_webp: images/portfolio/debian.webp
       categories :
         - L3 Support
@@ -32,7 +32,7 @@ portfolio:
       content: Debian is one of the oldest operating systems based on the Linux kernel established in 1993.
       link: "https://www.debian.org/"
     - name: Rocky Linux
-      image: images/portfolio/rocky.jpg
+      image: images/portfolio/rocky.png
       image_webp: images/portfolio/rocky.webp
       categories:
         - Reduce Costs
@@ -40,14 +40,14 @@ portfolio:
         - Infrastructure Hardening
       content: Open-source enterprise operating system designed to be 100% compatible with Red Hat Enterprise Linux®.
     - name: OpenTofu
-      image: images/portfolio/opentofu.jpg
+      image: images/portfolio/opentofu.png
       image_webp: images/portfolio/opentofu.webp
       categories :
         - Automate Infrastructure
       content: The Linux Foundation's open source infrastructure as code tool. Fork of HashiCorp's Terraform.
       link: "https://opentofu.org/"
     - name: Amazon Web Services
-      image: images/portfolio/aws.jpg
+      image: images/portfolio/aws.png
       image_webp: images/portfolio/aws.webp
       categories :
         - Reduce Costs
@@ -55,14 +55,14 @@ portfolio:
       content: The world’s most comprehensive and broadly adopted cloud offering over 200 fully featured services.
       link: "https://aws.amazon.com/"
     - name: Amazon EKS
-      image: images/portfolio/eks.jpg
+      image: images/portfolio/eks.png
       image_webp: images/portfolio/eks.webp
       categories :
         - Reduce Costs
       content: Fully managed K8S service that enables you to run Kubernetes in both AWS cloud and on-premises.
       link: "https://www.debian.org/"
     - name: Eclipse Temurin
-      image: images/portfolio/temurin.jpg
+      image: images/portfolio/temurin.png
       image_webp: images/portfolio/temurin.webp
       categories:
         - Reduce Costs
@@ -71,7 +71,7 @@ portfolio:
       content: Oracle Hotspot alternative open source Java SE build based upon OpenJDK. Formerly named AdoptOpenJDK.
       link: "https://adoptium.net/"
     - name: OpenLDAP
-      image: images/portfolio/openldap.jpg
+      image: images/portfolio/openldap.png
       image_webp: images/portfolio/openldap.webp
       categories:
         - L3 Support
@@ -81,7 +81,7 @@ portfolio:
       content: OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol.
       link: "https://www.openldap.org/"
     - name: PostgreSQL
-      image: images/portfolio/postgresql.jpg
+      image: images/portfolio/postgresql.png
       image_webp: images/portfolio/postgresql.webp
       categories:
         - L3 Support
@@ -91,7 +91,7 @@ portfolio:
       content: Powerful & open source object-relational database system with over 35 years of active development.
       link: "https://www.postgresql.org/"
     - name: Proxmox VE
-      image: images/portfolio/proxmox.jpg
+      image: images/portfolio/proxmox.png
       image_webp: images/portfolio/proxmox.webp
       categories:
         - Reduce Costs

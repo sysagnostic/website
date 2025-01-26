@@ -892,6 +892,7 @@ a:hover {
 
 .portfolio-block {
   position: relative;
+  background: #292929;
 }
 
 .portfolio-block:before {
