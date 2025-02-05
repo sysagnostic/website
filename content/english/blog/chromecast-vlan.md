@@ -34,7 +34,7 @@ This was my first impression when I stumbled upon the computer network explorato
 
 ## Network topology
 
-My data link layer is sectioned into several VLANs, based on data confidentiality and connected device security concerns. There is a lot of complexity in the network (IEEE 802.3q trunks, Proxmox virtualization, VLAN-aware bridging, etc). The complex and irrelevant details are abstracted away in the drawings. The relevant VLAN topology is as follows:
+My data link layer is sectioned into several VLANs, based on data confidentiality and connected device security concerns. There is a lot of complexity in the network (IEEE 802.1q trunks, Proxmox virtualization, VLAN-aware bridging, etc). The complex and irrelevant details are abstracted away in the drawings. The relevant VLAN topology is as follows:
 
 ![Network topology](/images/blog/chromecast-vlan-overview.svg)
 
