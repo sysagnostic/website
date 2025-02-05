@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 author: "David Lakatos"
 title: Streaming Plex content across VLANs to Google Chromecast
 description: Case study how to implement L2 network separation between Chromecast clients and devices
