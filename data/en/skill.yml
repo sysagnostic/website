@@ -1,0 +1,25 @@
+skill:
+  enable: false
+  title: Our Skills
+  subtitle: Colorful technology background
+  content: The company works with computer science engineers wielding system agnostic open source, cloud and datacenter technologies.
+  image: images/about/company-growth.webp
+  skill_item :
+    - name: Relational Database
+      percent: 90%
+    - name: Amazon Web Services
+      percent: 80%
+    - name: Linux Administration
+      percent: 90%
+    - name: Hardware Maintenance
+      percent: 50%
+    - name: Security Awareness
+      percent: 95%
+    - name: Containers, Orchestration and Virtualization
+      percent: 80%
+    - name: IT Security
+      percent: 75%
+    - name: Identity and Access Managerment
+      percent: 70%
+    - name: Infrastructure as Code Development
+      percent: 80%

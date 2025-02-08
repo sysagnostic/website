@@ -1,0 +1,11 @@
+noJSConfigInAssets: false
+useResourceCacheWhen: 'fallback'
+buildStats:
+  enable: true
+cachebusters:
+  - source: 'assets/.*\.(js|ts|jsx|tsx)'
+    target: '(js|scripts|javascript)'
+  - source: 'assets/.*\.(css|sass|scss)$'
+    target: '(css|styles|scss|sass)'
+  - source: 'assets/.*\.(.*)$'
+    target: '$1'

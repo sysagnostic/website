@@ -1,0 +1,19 @@
+feature:
+  enable: true
+  image: images/about/about-business-man.jpg
+  image_webp: images/about/about-business-man.webp
+  title: We’re A DevSecOps Consulting Company.
+  content: "Our team provides a wide range of professional consulting and product support services for our customers."
+  feature_item: 
+    - title: European Economic Area
+      icon: ti-world
+      content: Our company and engineers operate within the borders of the EU.
+    - title: Startup Culture
+      icon: ti-stats-up
+      content: We are a small team of agile and highly trained professionals.
+    - title: Security Focused
+      icon: ti-shield
+      content: Our culture promote security above all. We spend considerable resources to keep our customers and ourselves secure.
+    - title: Fair Business
+      icon: ti-announcement
+      content: Our motto is "Never underestimate the power of being kind to someone".

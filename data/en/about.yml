@@ -1,0 +1,13 @@
+about:
+  enable : true
+  title : About Us
+  about_item :
+  - icon : ti-unlock
+    title : FOSS in the Cloud
+    content : We guide enterprises to the path of cloud native and open source.
+  - icon : ti-money
+    title : Cost-Effective
+    content : We help our customers implement practical solutions for their business.
+  - icon : ti-shield
+    title : Security Focused
+    content : We take excessive internal measures to keep our customers safe.

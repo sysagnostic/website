@@ -1,0 +1,100 @@
+portfolio:
+  enable: true
+  title: We Love FOSS and Cloud
+  portfolio_item :
+    - name: WildFly
+      image: images/portfolio/wildfly.png
+      image_webp: images/portfolio/wildfly.webp
+      categories:
+        - L3 Support
+        - DEV Support
+        - Reduce Costs
+        - Optimize Performance
+        - Infrastructure Hardening
+      content: A powerful, modular, & lightweight open source Jakarta (formerly Java EE) application server.
+      link: "https://www.wildfly.org/about/"
+    - name: AlmaLinux OS
+      image: images/portfolio/almalinux.png
+      image_webp: images/portfolio/almalinux.webp
+      categories :
+        - L3 Support
+        - Reduce Costs
+        - Infrastructure Hardening
+      content: 100% Red Hat Enterprise Linux® compatible free Linux OS for the community, by the community.
+      link: "https://almalinux.org/"
+    - name: Debian
+      image: images/portfolio/debian.png
+      image_webp: images/portfolio/debian.webp
+      categories :
+        - L3 Support
+        - Reduce Costs
+        - Infrastructure Hardening
+      content: Debian is one of the oldest operating systems based on the Linux kernel established in 1993.
+      link: "https://www.debian.org/"
+    - name: Rocky Linux
+      image: images/portfolio/rocky.png
+      image_webp: images/portfolio/rocky.webp
+      categories:
+        - Reduce Costs
+        - L3 Support
+        - Infrastructure Hardening
+      content: Open-source enterprise operating system designed to be 100% compatible with Red Hat Enterprise Linux®.
+    - name: OpenTofu
+      image: images/portfolio/opentofu.png
+      image_webp: images/portfolio/opentofu.webp
+      categories :
+        - Automate Infrastructure
+      content: The Linux Foundation's open source infrastructure as code tool. Fork of HashiCorp's Terraform.
+      link: "https://opentofu.org/"
+    - name: Amazon Web Services
+      image: images/portfolio/aws.png
+      image_webp: images/portfolio/aws.webp
+      categories :
+        - Reduce Costs
+        - Optimize Performance
+      content: The world’s most comprehensive and broadly adopted cloud offering over 200 fully featured services.
+      link: "https://aws.amazon.com/"
+    - name: Amazon EKS
+      image: images/portfolio/eks.png
+      image_webp: images/portfolio/eks.webp
+      categories :
+        - Reduce Costs
+      content: Fully managed K8S service that enables you to run Kubernetes in both AWS cloud and on-premises.
+      link: "https://www.debian.org/"
+    - name: Eclipse Temurin
+      image: images/portfolio/temurin.png
+      image_webp: images/portfolio/temurin.webp
+      categories:
+        - Reduce Costs
+        - Optimize Performance
+        - L3 Support
+      content: Oracle Hotspot alternative open source Java SE build based upon OpenJDK. Formerly named AdoptOpenJDK.
+      link: "https://adoptium.net/"
+    - name: OpenLDAP
+      image: images/portfolio/openldap.png
+      image_webp: images/portfolio/openldap.webp
+      categories:
+        - L3 Support
+        - Reduce Costs
+        - Optimize Performance
+        - Infrastructure Hardening
+      content: OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol.
+      link: "https://www.openldap.org/"
+    - name: PostgreSQL
+      image: images/portfolio/postgresql.png
+      image_webp: images/portfolio/postgresql.webp
+      categories:
+        - L3 Support
+        - Reduce Costs
+        - Optimize Performance
+        - Infrastructure Hardening
+      content: Powerful & open source object-relational database system with over 35 years of active development.
+      link: "https://www.postgresql.org/"
+    - name: Proxmox VE
+      image: images/portfolio/proxmox.png
+      image_webp: images/portfolio/proxmox.webp
+      categories:
+        - Reduce Costs
+        - L3 Support
+      content: VMware alternative open-source KVM based enterprise virtualization platform.
+      link: "https://www.proxmox.com/en/proxmox-virtual-environment/overview"
