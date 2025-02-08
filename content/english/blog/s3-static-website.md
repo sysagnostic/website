@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 author: David Lakatos
 title: "How it's made: static website running on AWS"
 description: Case study how sysagnostic runs its own Hugo based static website on the Amazon Web Services cloud landscaped by OpenTofu.
