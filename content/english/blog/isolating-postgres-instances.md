@@ -3,47 +3,49 @@ draft: true
 author: "Tamas Rebeli"
 title: Isolating resource consumption for PostgreSQL instances in Linux
 description: Overview of core Linux techniques, and using systemd to set resource limits per PostgreSQL instance
-publishDate: 2025-01-15
-date: 2024-01-08
+publishDate: 2025-02-15
+date: 2024-02-15
 Image_webp: images/blog/isolating-postgres-instances-cover.webp
 image: images/blog/isolating-postgres-instances-cover.png
 tags:
-- Linux
+- linux
 - cgroups
 - systemd
 - resource control
 - resource limits
 - nice
+- scheduling
+- postgresql
 ---
 
 In a traditional, on-premises enterprise environment, a single bare-metal server or virtual machine may host multiple PostgreSQL server instances. Even though they share the same machine, they often belong to different applications, projects or organizational units, and are required to be isolated in terms of utilizing system resources like RAM, CPU and disk I/O, usually for the purpose of business management.
 
-PostgreSQL is an excellent database management system, but its built-in resource management – if you can even call it that – is mostly at a lower level than what would be ideal for setting up such an isolation in a straightforward manner. You can set some resource consumption related parameters to control things like memory utilization and degree of parallelism for certain SQL operations, but most of those settings do not impose overall hard limits for the PostgreSQL server instance (nor for databases, users or even queries for that matter). 
+PostgreSQL is an excellent database management system in general. On the other hand, its built-in resource management – if you can even call it that – mostly operates at a lower level of abstraction than what would be ideal for setting up such an isolation in a straightforward manner. You can enforce resource consumption limits like memory utilization and degree of parallelism for certain SQL operations. Although, most of these settings do not impose global hard limits for the PostgreSQL server instance: not for databases nor for users or even queries for that matter.
 
-Setting up priorities between users, queries or databases so that one may consume more resources than others is a feature completely missing from community PostgreSQL too. Then again, even if prioriziation were possible at those levels, it is generally recommended to deploy a separate PostgreSQL server instance per database, unless a set of databases logically belong together, and may be managed (stopped and started, backed up, upgraded etc.) as a unit in terms of business functionality.
+Moreover, setting up priorities between users, queries or databases - so that one may consume more resources than others - is a feature completely missing from the community codebase of PostgreSQL. Then again, even if prioriziation were possible at those levels, it is generally recommended to deploy a separate PostgreSQL server instance per database. The single-instance multi-database configuration is desired only of those databases logically belong together, and may be managed - stopped, started, backed up, upgraded etc. - as a single unit in terms of business functionality.
 
-Does it all mean such isolation is impossible? No.
+Does it all mean that high-level isolation is impossible? Thankfully, it does not.
 
 > It is possible to isolate PostgreSQL instances, but as with quite a few other aspects in PostgreSQL, limiting overall resource consumption or setting up priorities needs to be implemented at the operating system level.
 
 
-After a run-down of some basic resource control techniques in Linux, we are going to cover how resource management is made possible from systemd, and how to do it specifically for PostgreSQL.
+After a run-down of some basic resource control techniques in Linux, we are going to cover how the desired level of resource management may be achived via systemd, and how to configure it specifically for PostgreSQL.
 
 
 ## Core Linux technologies for resource management
-Sharing resources between users on a server has always been the norm from the very early ages of computing, and controlling resource consumption came as a natural requirement. Some of the older tools discussed here date back to the 1970's, but even the most recent core technology originated in the late 2000's. That means you've probably heard about all of these. Let's take a quick look.
+Sharing server resources between users has always been the norm starting from the very early ages of computing. Controlling shared resource consumption came as a natural requirement. Some of the older tools discussed here date back to the 1970's, but even the most recent core technology originated as early as the late 2000's. That means there's a good chance you've already heard about the following technologies. Let's take a quick look.
 
 ### Classical resource limits
-What first comes to mind is the age-old resource limiting solution commonly referred to as [ulimit](https://pubs.opengroup.org/onlinepubs/9699919799/functions/ulimit.html). POSIX originally used this name for process limits, but later deprecated it in favour of the new name *rlimit* (resource limit).
+What first comes to mind is the age-old resource limiting solution commonly referred to as [ulimit](https://pubs.opengroup.org/onlinepubs/9699919799/functions/ulimit.html). POSIX originally used this name for process limits, but later deprecated the name in favour of a new one called *rlimit* (resource limit).
 
-In GNU/Linux, corresponding system calls are also implemented by [functions](https://www.gnu.org/software/libc/manual/html_node/Limits-on-Resources.html) with **`rlimit`** in their names, like the [`prlimit()`](https://man7.org/linux/man-pages/man2/prlimit.2.html) system call,
-which can set resource limits per process. The shell built-in to get and set resource limits on the command line in an OS user session (for child processes forked by the shell) somehow kept the old name `ulimit` in Linux, but the command to change limits for already running processes is [`prlimit`](https://man7.org/linux/man-pages/man1/prlimit.1.html), following the new naming.
+On one hand, GNU/Linux, resource limiting library functions are also implemented by [glibc](https://www.gnu.org/software/libc/manual/html_node/Limits-on-Resources.html) with **`rlimit`** in their names, like the [`prlimit()`](https://man7.org/linux/man-pages/man2/prlimit.2.html) system call,
+which can set resource limits per process. On the other hand, shell built-in to get and set resource limits on the command line in an OS user session (for child processes forked by the shell) somehow kept the old name `ulimit` in Linux. In contrast with the shell built-in, the program that can change limits for already running processes is again called [`prlimit`](https://man7.org/linux/man-pages/man1/prlimit.1.html), following the new naming convention. The consistency of naming limit related functions and programs is a mess.
 
 Linux also has something called *security limits*, which is basically a [PAM](https://www.man7.org/linux/man-pages/man3/pam.3.html) wrapper around *rlimit* calls to automate `ulimit` for OS user session creation, traditionally configured in [`/etc/security/limits.conf`](https://www.man7.org/linux/man-pages/man5/limits.conf.5.html).
 
-With classical resource limits, you can set limits on individual processes in a given OS user session. They are not per-user settings, they are per-process setting: Linux does not sum resource consumption over processes for a user. Child processes inherit the limits set on the parent. Limits apply to resources like the maximum CPU time in seconds the process can use (`-t` or `cpu`), the maximum virtual memory size (address space) (`-v` or `as`), and the maximum stack size (`-s` or `stack`) the process can allocate. Please note that limiting physical memory usage (resident set size) (`-m` or `rss`) was disabled a long time ago, in kernel 2.4.30. Setting that limit will have no effect. 
+With classical resource limits, you can set limits for individual processes per OS user session. They are not per-user settings, they are per-process settings. Linux does not aggregate resource consumption of processes by owner user at all. Child processes inherit the limits set for the parent. Limits set by the shell built-in `ulimit` apply to resources. One may enforce the maximum CPU time in seconds the process can use (`-t` or `cpu`), the maximum virtual memory size (address space) (`-v` or `as`), and the maximum stack size (`-s` or `stack`) the process can allocate. Please note that limiting physical memory usage (resident set size) (`-m` or `rss`) was disabled a long time ago, in kernel 2.4.30. Setting that limit will have no effect.
 
-You might face the need to change some of these settings every now and then (for example: increase the stack size to allow a higher value for the `max_stack_depth` PostgreSQL server parameter). Classical resource limit settings, however, are not instrumental to isolating PostgreSQL instances. Limiting CPU time is obviously not a great idea, nor is limiting virtual memory of a process instead of actual RAM usage, and RSS size cannot be limited. There is no way to limit I/O usage either.
+You might face the need to change some of these settings every now and then. For example, increase the stack size to allow a higher value for the `max_stack_depth` PostgreSQL server parameter. Classical resource limit settings, however, are not instrumental to isolating PostgreSQL instances. Limiting CPU time is not a great idea for a relational database in general. It's also ill-advised to limit virtual memory size of a process instead of limiting actual RAM usage, but the actual RAM usage called RSS size cannot be limited in Linux. There is no way to limit I/O usage either.
 
 
 ### Nice value
@@ -51,43 +53,43 @@ As for setting priorities, another long-standing POSIX concept called [*nice val
 
 A "nicer" process consumes less resources, which means increasing niceness will make the process lower priority, or in other words the CPU scheduler will favour the process less. Child processes will inherit their priority and nice values from their parents.
 
-In GNU/Linux, you can use the [`nice`](https://man7.org/linux/man-pages/man1/nice.1.html) command to run a program with a specified nice value, and the [`renice`](https://man7.org/linux/man-pages/man1/renice.1.html) command to interactively change the nice value for a given process, while the same can be achieved programmatically with the [`setpriority()`](https://man7.org/linux/man-pages/man2/setpriority.2.html) system call. 
+In GNU/Linux, you can use the [`nice`](https://man7.org/linux/man-pages/man1/nice.1.html) command to run a program with a specified nice value, and the [`renice`](https://man7.org/linux/man-pages/man1/renice.1.html) command to interactively change the nice value for a given process. The same result can be achieved programmatically with the [`setpriority()`](https://man7.org/linux/man-pages/man2/setpriority.2.html) system call.
 
-You can increase the priority (set a negative nice value) for your own processes only as root, but you can decrease the priority (set a positive nice value), although only up to the configured limit (see below). The new priority will be calculated as: *current priority + nice value*. 
+Only root can increase the priority (set a negative nice value) for a process, but anyone can decrease the priority (set a positive nice value) of their own process - up to the configured limit (see below). The new priority is calculated by the formula: *current priority + nice value*. 
 
 Unfortunately, the terms "nice value" and "priority" are sometimes used interchangeably, which can get quite confusing. For example, the `renice` command refers to the nice value as "priority", and in classical resource limits, the two terms are even more conflated.
 
-Classical resource limits also include limits for both nice value and priority, to be applied at the user session level. With `ulimit`, you can set a limit called "scheduling priority" (`-e`), which indeed limits the maximum priority. So far so good. In `limits.conf`, however, there are two limits: `priority` and `nice`. When a hard limit for `priority` is set, it is interpreted and set as the nice value for processes directly, which in turn affects priority as usual. When a hard limit for `nice` is set, it will change the scheduling priority limit (`-e`), and will be the maximum priority the user can set for its processes.
+Classical resource limits also include limits for both nice value and priority, to be applied at the user session level. With `ulimit`, you can set a limit called "scheduling priority" (`-e`), which setting limits the maximum priority of any processes started in scope of the affected session. In `limits.conf`, however, there are two limits one may define: `priority` and `nice`. If a hard limit for `priority` is set, it is interpreted and set as the nice value for all affected processes directly, which in turn affects scheduling priority as usual. In case a hard limit for `nice` is set, it changes the scheduling priority limit (`-e`) that eventually forms the maximum niceness the user can set for its processes.
 
-Adjusting the nice value for a client backend process of a PostgreSQL server instance is a feasible method to give priority to a given database session. You can also adjust the nice value of the `postgres` process (which is the parent of all other processes in the PostgreSQL instance) to prioritize that particular instance over others. 
+Database session prioritization is feasible via adjusting the nice value of its client backend process. You can also adjust the nice value of the `postgres` process, the parent of all other processes in the PostgreSQL instance. The new nice value prioritizes that particular instance over others.
 
-Prioritizing disk I/O for processes is also possible in Linux via [`ionice`](https://man7.org/linux/man-pages/man1/ionice.1.html) on the command line, and via the [`ioprio_set()`](https://man7.org/linux/man-pages/man2/ioprio_set.2.html) system call programmatically, but it requires the [CFQ scheduler]( https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt) to be set for disk devices used by PostgreSQL, which may not be the default I/O scheduler in your distribution of choice, and might just not be the best option for your particular workload.
+Prioritizing disk I/O for processes is also possible in Linux via [`ionice`](https://man7.org/linux/man-pages/man1/ionice.1.html) on the command line, and via the [`ioprio_set()`](https://man7.org/linux/man-pages/man2/ioprio_set.2.html) system call programmatically, but the technique requires the kernel to use the [CFQ scheduler]( https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt) for the disk devices used by PostgreSQL. Although using CFQ scheduler is usually feasible, it may not be the default I/O scheduler in your distribution of choice, and might just not be the best option for your particular workload.
 
 
 ### Control groups
-A more recent and more featureful resource management solution implemented in the Linux kernel is *cgroups* ([Control Groups](https://docs.kernel.org/admin-guide/cgroup-v1/cgroups.html)), originally developed by Google engineers, which ran by the name *Process Containers* at that time (and indeed it is one of the main pillars of today's container technology in Linux, along with namespaces).
+A more recent and more featureful resource management solution implemented in the Linux kernel is *cgroups* ([Control Groups](https://docs.kernel.org/admin-guide/cgroup-v1/cgroups.html)), originally developed by Google engineers, which ran by the name *Process Containers* at that time. It is one of the main pillars of today's container technologies running on Linux, along with Linux namespaces.
 
 Cgroups allows processes to be organized into a hierarchy of groups, and provides control over resource consumption for those groups of processes. 
-Every process inside a cgroup will have the limits of that cgroup imposed on it. 
+Each process inside a cgroup has the limits of that cgroup imposed on it. 
 
-Different controllers are available in cgroups to limit the consumption of different types of resources (CPU, memory, block I/O etc.). These controllers provide much more fine-grained control over resource consumption than earlier solutions.
+Wide variety of controllers are available for cgroups to limit the consumption of different resource types: CPU, memory, block I/O etc. These controllers provide significant improvements for fine-grained resource consumption control over earlier solutions.
 
-In 2015, a new version of cgroups, [*cgroups-v2*](https://docs.kernel.org/admin-guide/cgroup-v2.html) made its way into the Linux kernel (in version 4.5). It is also commonly referred to as the *unified hierarchy*, because that was a major change from v1 (in v1, every controller had a different mount point under `/sys/fs/cgroup/`), but other changes were introduced as well, including changes that affect I/O and memory control. Newer Linux distributions are using cgroups-v2 now, but you may very well see Linux installations with the original cgroups still.
+In 2015, a new version of cgroups, [*cgroups-v2*](https://docs.kernel.org/admin-guide/cgroup-v2.html) made its way into the Linux kernel (in version 4.5). cgroups v2 is also commonly referred to as the *unified hierarchy*, because this feature was probably the most significant change overall aiming simplicity over unnecessary flexibility. While the more flexible v1 earlier assigned each controller its own mount point under `/sys/fs/cgroup/`, *unified hierarchy* mounts all groups under the single `/sys/fs/cgroup` hierarchy. On top of that, other changes were introduced as well affecting I/O and memory control. Newer Linux distributions are using cgroups-v2 now, but from time to time you may still meet Linux installations with cgroups v1 still.
 
 
 ## Using systemd for resource management
 You can use those core Linux technologies introduced above in a more centralized (and perhaps less confusing) manner by an even more recent technology, [*systemd*](https://man7.org/linux/man-pages/man1/init.1.html). It is an init system and service manager for GNU/Linux, originally developed by Red Hat, and later adopted by all major Linux distributions, following long and heated debates. Systemd is now wide-spread, and you must get familiar with it if you haven't done so.
 
-This article will focus on resource management solutions based on systemd. But just before we get to that, let's briefly look at how systemd organizes processes that it is managing.
+This article focuses on resource management solutions based on systemd. But just before we get to that, let's briefly look at how systemd organizes its managed processes.
 
 
 ### Systemd unit types
 Systemd manages different types of units. Important types for the purpose of this article are: *service*, *scope* and *slice*.
 
 #### Services and scopes
-You are most probably familiar with service units. A *service* runs one or more processes, or in other words, a service is a logical group of processes. A service unit is defined in its [*unit file*](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) `<name>.service`.
+You are most probably familiar with service units. A *service* runs one or more processes, or in other words, a service is a logical group of processes. A service unit is defined in its [*unit file*](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) named `<something>.service`.
 
-A *scope* is created automatically by systemd for each user session (and some other things) running in Linux. A scope is also a logical group of processes. (The difference is that the processes in a scope are not started directly by systemd, they are merely assigned to the scope by systemd. That is also why you cannot define a scope in a unit file.)
+A *scope* is created automatically by systemd for each user session (and some other things) running in Linux. A scope is also a logical group of processes. The difference between service and scope is that the processes in a scope are not started directly by systemd, they are merely assigned to the scope by systemd. That is also why you cannot define a scope in a unit file.
 
 You can use the `systemctl --type scope` command to list scopes.
 
@@ -114,7 +116,7 @@ You can use the `systemctl --type slice` command to list slices.
     user.slice                   loaded active active User and Session Slice
 
 
-You may have noticed that slices are themselves organized into a hierarchy, which means there can be slices inside slices. 
+You may have noticed that slices are organized into a hierarchy, which means slices may contain other slices. 
 
 The root slice is `-.slice`. 
 
@@ -125,7 +127,7 @@ Below the root slice, there are at least two other slices:
 The name of a slice indicates the path to it in the hierarchy. In general, slice names look like this: `<parent>-<child>-<grandchild>.slice`. 
 
 
-### Cgroups managed from systemd
+### Cgroups managed by systemd
 Now let's take a look at how cgroups is integrated into systemd.
 
 Systemd maintains a default cgroups hierarchy, following its own hierarchy of slices, services and scopes.
@@ -157,11 +159,11 @@ You can use the `systemd-cgls` command to list cgroups created by systemd.
       │   └─525 /sbin/agetty -o -p -- \u --noclear tty1 linux
       …
 
-(You can use the `systemctl status` command for a unit to see where it is located in the cgroups hierarchy.)
+You can use the `systemctl status` command for a unit to see where it is located in the cgroups hierarchy.
 
 As you might have guessed, the cgroups hierarchy maintained by systemd allows you to define cgroups resource limits for slices, services and scopes. Such definitions go into the corresponding unit files (`<name>.slice` or `<name>.service`), or limits can be set interactively for an already runing unit in a dynamic fashion (that is the only option for scopes).
 
-Available parameters related to CPU, RAM and I/O resource control are all explained in the [Resource control unit settings](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html) page of the systemd documentation. 
+Available parameters related to CPU, RAM and I/O resource control are all explained in the [Resource control unit settings](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html) page of the systemd documentation.
 
 You can use the `systemctl show` command to see the current settings for a unit, including the ones related to resource control.
 
@@ -180,21 +182,21 @@ To check rlimit settings for a systemd unit, you can use the `systemctl show` co
 
 (To check rlimit settings for an individual process, you can read the `/proc/<PID>/limits` file.)
 
-### Nice value managed from systemd
-A nice value can also be defined in systemd service unit files.
+### Nice configuration managed by systemd
+Nice value can also be defined via systemd service unit files.
 
 To check the nice value setting for a systemd unit, you can use the `systemctl show` command.
 
-    systemctl show <name>.service | grep "Nice"
+    systemctl show <name>.service --property=Nice
 
-(To check the priority and nice value of an individual process, you can use the `ps -o pid,comm,pri,ni -q <PID>` command.) 
+To check the priority and nice value of an individual process, you can use the `ps -o pid,comm,pri,ni -q <PID>` command.
 
-## Isolating resource consumption of PostgreSQL instances in systemd
+## Configuring resource consumption isolation of PostgreSQL instances via systemd
 
-Having looked at all of those settings in general, let's put them to use by implementing isolation of resource consumption for PostgreSQL in systemd. You will see how service units can be set up, and what to put into the unit files for those units for resource control purposes.
+Having looked at all of those settings in general, let's put them to use by configuring isolation of resource consumption for PostgreSQL via systemd. We shall take a look at how service units can be set up, and what unit file parameters may be used for resource control purposes.
 
 ### Setting up systemd service units for PostgreSQL instances
-Most Linux distributions have a default PostgreSQL service unit (like `postgresql.service`), for a simple setup, with a single PostgreSQL server instance. It usually looks something like this (this was taken almost word by word from SUSE Linux, but of course it will be slightly different with each distribution):
+Most Linux distributions have a default PostgreSQL service unit (like `postgresql.service`), for a simple setup, with a single PostgreSQL server instance. The example unit file was copied from SuSE Linux distribution, but of course it can be slightly different on each distribution:
 
     root@sysagnostic:~ # systemctl cat postgresql.service
 
@@ -223,18 +225,16 @@ You can add resource control parameters into the `[Service]` section above, like
     Type=forking
     …
 
-A better way to add such parameters is to use the drop-in configuration mechanism in Systemd. You can create something called a *drop-in file*, and in that file you can define additional configuration for a unit (and overwrite existing configuration defined in the main unit file). In this case, you can create a file called `/etc/systemd/system/postgresql.service.d/override.conf` (or it is even better to use `systemctl edit postgresql.service`) and provide your resource control settings in the `[Service]`.
+A better way to add such parameters is to use the drop-in configuration mechanism in Systemd. You can create something called a *drop-in file*, and in that file you can define additional configuration for a unit and merge your configuration with the existing one defined in the main unit file. In this case, you can create a file called `/etc/systemd/system/postgresql.service.d/override.conf` - or use the equivalent command `systemctl edit postgresql.service` - and provide your resource control settings in the `[Service]` section.
 
-That works just fine for a single PostgreSQL server instance.
+> When there are multiple instances, however, it makes sense to have a separate systemd service unit for each PostgreSQL server instance.
 
-> When there are multiple instances, however, it makes sense to have a separate systemd service unit for each PostgreSQL server instance. 
-
-Some Linux distributions will do it for you automatically (for example in Debian, you can use [`pg_createcluster`](https://manpages.debian.org/bookworm/postgresql-common/pg_createcluster.1.en.html) to have a service unit created), while in other distributions you will have to create the service units yourself.
+Some Linux distributions will do it for you automatically. For example, in Debian, you can use [`pg_createcluster`](https://manpages.debian.org/bookworm/postgresql-common/pg_createcluster.1.en.html) to have a service unit created, while in other distributions you have to create the service units yourself.
 
 #### Template service and instantiated services
 Systemd can handle something called a [*template service*](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Service%20Templates). A template service is a special service unit that can be instantiated. In our case, the instantiated service units will serve as the actual service units for the different PostgreSQL server instances.
 
-The name of the template service unit will be `postgresql-<ver>@.service` (where `<ver>` is the PostgreSQL major version). Notice `@` in the name. Here is what the unit file could look like: 
+The name of the template service unit will be `postgresql-<ver>@.service`, where `<ver>` is the PostgreSQL major version. Notice `@` in the name. Here is what the unit file could look like: 
 
     root@sysagnostic:~ # cat /etc/systemd/system/postgresql-17@.service
     [Unit]
@@ -252,13 +252,13 @@ The name of the template service unit will be `postgresql-<ver>@.service` (where
 
 To instantiate a template, a certain value will need to go between `@` and `.service` in its name. In our case, a systemd service unit instance will be created for each PostgreSQL instance as `postgresql-<ver>@<cluster_name>.service`, where `<cluster_name>` is the name of the PostgreSQL server instance. 
 
-(PostgreSQL *cluster* is just another name for PostgreSQL server instance, it has nothing to do with HA clusters. More precisely, a culster is the set of databases that a PostgreSQL server instance is managing, typically located in the data directory.)
+NOTE: PostgreSQL *cluster* is just another name for PostgreSQL server instance, it has nothing to do with HA clusters. More precisely, a culster is the set of databases that a PostgreSQL server instance is managing, typically located in the data directory.
 
 What comes between `@` and `.service` is also a variable, which is used inside the template. In our case, it is the `<cluster_name>`, which will be used to point to the data directory of the given cluster.
 
-Notice the `%i` placeholder. It is where our variable value (the `<cluster_name>`) will be substituted. It will be used to specify the location of the data directory (in the `POSTGRES_DATADIR` environment variable, which will then be picked up by the `postgresql-script` – please note that each distribution does this slightly differently).
+Notice the `%i` placeholder in the unit descriptor. `%i` is where our variable value (the `<cluster_name>`) should be substituted. It specifies the location of the data directory by the `POSTGRES_DATADIR` environment variable. The evaluated `POSTGRES_DATADIR` environment valuable is then passed to the `postgresql-script` when starting the database. Please note that each distribution does this slightly differently.
 
-To instantiate that service unit, you can now simply add a cluster name (the data directory must exist), and start the new service:
+You can now simply instantiate a service unit and start the new service by passing the cluster name to systemctl. Please note, that the data directory must exist before starting the service.
 
     systemctl start postgresql-17@mypg1.service
 
@@ -273,31 +273,31 @@ Now that you have set up service units, you can add resource control parameters.
 
 Per-instance resource control settings can be provided in the `[Service]` section of a drop-in file, as discussed before. In our case, the drop-in file will be `/etc/systemd/system/postgresql-<ver>@<cluster_name>.service.d/99-resource-control.conf`. Notice that the directory name ending in `service.d` must begin by the exact name of the service unit. The file itself can be named anything, the important thing is that it ends in `.conf`.
 
-The settings you define in the file will be picked up by systemd as drop-in configuration, and will merge it into the main configuration.
+The settings you define in the file will be picked up by systemd as drop-in, and will merge it into its main configuration.
 
-You might have to run the `systemctl daemon-reload` command for systemd to load the file, and then restart the service using the `systemctl restart` command.
+You always have to run the `systemctl daemon-reload` command after changing systemd unit files or drop-ins to reload the new definitions. After a successful reload, restart the service using the `systemctl restart` command.
 
-Let's now look at some useful resource control settings you can put into the drop-in file.
+Let's now look at some useful resource control settings you can put into the drop-in files.
 
 #### Limiting CPU usage 
 You can use the [`CPUQuota`](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html#CPUQuota=
-) setting to limit CPU usage, which is a percentage value. The percentage specifies how much CPU time the unit can get at maximum, relative to the total CPU time. 
+) setting to limit CPU usage, which is a percentage value. The percentage specifies how much CPU time the unit can get at maximum, relative to the total CPU time available to the operating system for scheduling.
 
 For example, to assign one full CPU to the instance, specify `CPUQuota=100%`. To assign 2 CPUs to the instance, specify `CPUQuota=200%`.
 
 > This parameter will affect the `CPUQuotaPerSecUSec` attribute of the systemd service unit, which shows how many CPU seconds the process will get for 1 wall-clock second. For  example, for `50%` it will show as `500ms`, and for `200%` as `2s`.
 
 #### Limiting RAM usage
-You can use the [`MemoryHigh`](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html#MemoryHigh=) setting to limit RAM usage. 
+You can use the [`MemoryHigh`](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html#MemoryHigh=bytes) setting to limit RAM usage.
 
-For example, to allot 8GB of RAM to the instance, specify `MemoryHigh=8G`.
+For example, to allot 8GiB of RAM to the instance, specify `MemoryHigh=8G`.
 
 > It is not a hard limit, which means the service unit may consume more memory, and it won't be killed. When memory consumption goes beyond that limit, however, the processes within the service unit are slowed down, and memory is taken away from them aggressively.
 
 #### Prioritizing an instance
 You can use the `Nice` setting, as shown above.
 
-For example, to give more priority to you instance, specify `Nice=-15`. 
+For example, to give more priority to you instance, specify `Nice=-15`.
 Priority can be set in the range of -20, 19, and please remember that a nicer process is lower priority.
 
 #### Putting it all together
@@ -317,10 +317,10 @@ Set up one service:
 
 Check settings:
 
-    root@sysagnostic:~ # systemctl show postgresql-17@mypg1.service | grep -E "CPUQuotaPerSecUSec|MemoryHigh|Nice"
+    root@sysagnostic:~ # systemctl show postgresql-17@mypg1.service --property=CPUQuotaPerSecUSec,MemoryHigh,Nice
     CPUQuotaPerSecUSec=4s
     MemoryHigh=17179869184
-    Nice=-6
+    Nice=-15
 
 Set up a second service:
 
@@ -335,10 +335,11 @@ Set up a second service:
 
 Check settings for the second service:
 
-    root@sysagnostic:~ # systemctl show postgresql-17@mypg2.service | grep -E "CPUQuotaPerSecUSec|MemoryHigh"
+    root@sysagnostic:~ # systemctl show postgresql-17@mypg2.service --property=CPUQuotaPerSecUSec,MemoryHigh,Nice
 
     CPUQuotaPerSecUSec=1s
     MemoryHigh=8589934592
+    Nice=0
 
 ### Setting up resource control for a group of PostgreSQL instances 
 Systemd automatically assigns instantiated service units to a slice unit that is named after their template unit. In our case, all PostgreSQL service units will be assigned to a slice unit called `system-postgresql.slice`. 

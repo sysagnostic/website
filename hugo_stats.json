@@ -216,7 +216,7 @@
       "body",
       "certifications",
       "cf-submit",
-      "cgroups-managed-from-systemd",
+      "cgroups-managed-by-systemd",
       "cicd",
       "classical-resource-limits",
       "classical-resource-limits-managed-from-systemd",
