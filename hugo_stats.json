@@ -191,6 +191,8 @@
     "ids": [
       "about",
       "access",
+      "amazon-fsx-for-openzfs",
+      "aurora-serverless-v2",
       "blog",
       "body",
       "certifications",
