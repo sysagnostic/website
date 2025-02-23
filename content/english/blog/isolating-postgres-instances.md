@@ -20,9 +20,9 @@ tags:
 
 In a traditional, on-premises enterprise environment, a single bare-metal server or virtual machine may host multiple PostgreSQL server instances. Even though they share the same machine, they often belong to different applications, projects or organizational units, and are required to be isolated in terms of utilizing system resources like RAM, CPU and disk I/O, usually for the purpose of business management.
 
-PostgreSQL is an excellent database management system in general. On the other hand, its built-in resource management – if you can even call it that – mostly operates at a lower level of abstraction than what would be ideal for setting up such an isolation in a straightforward manner. You can enforce resource consumption limits like memory utilization and degree of parallelism for certain SQL operations. Although, most of these settings do not impose global hard limits for the PostgreSQL server instance: not for databases nor for users or even queries for that matter.
+PostgreSQL is an excellent database management system in general. On the other hand, its built-in resource management – if you can even call it that – mostly operates at a lower level than what would be ideal for setting up such an isolation in a straightforward manner. You can enforce resource consumption limits like memory utilization and degree of parallelism for certain SQL operations. Most of these settings, however, do not impose global hard limits for the PostgreSQL server instance: not for databases nor for users or even queries for that matter.
 
-Moreover, setting up priorities between users, queries or databases - so that one may consume more resources than others - is a feature completely missing from the community codebase of PostgreSQL. Then again, even if prioriziation were possible at those levels, it is generally recommended to deploy a separate PostgreSQL server instance per database. The single-instance multi-database configuration is desired only of those databases logically belong together, and may be managed - stopped, started, backed up, upgraded etc. - as a single unit in terms of business functionality.
+Moreover, setting up priorities between users, queries or databases – so that one may consume more resources than others – is a feature completely missing from vanilla PostgreSQL. Then again, even if prioriziation were possible at those levels, it is generally recommended to deploy a separate PostgreSQL server instance per database. The single-instance multi-database configuration is desired only if those databases logically belong together, and may be managed – stopped, started, backed up, upgraded etc. – as a single unit in terms of business functionality.
 
 Does it all mean that high-level isolation is impossible? Thankfully, it does not.
 
@@ -33,19 +33,19 @@ After a run-down of some basic resource control techniques in Linux, we are goin
 
 
 ## Core Linux technologies for resource management
-Sharing server resources between users has always been the norm starting from the very early ages of computing. Controlling shared resource consumption came as a natural requirement. Some of the older tools discussed here date back to the 1970's, but even the most recent core technology originated as early as the late 2000's. That means there's a good chance you've already heard about the following technologies. Let's take a quick look.
+Sharing server resources between users has always been the norm since the very early ages of computing. Controlling shared resource consumption came as a natural requirement. Some of the older tools discussed here date back to the 1970's, but even the most recent core technology originated as early as the late 2000's. That means there's a good chance you've already heard about the following technologies. Let's take a quick look.
 
 ### Classical resource limits
 What first comes to mind is the age-old resource limiting solution commonly referred to as [ulimit](https://pubs.opengroup.org/onlinepubs/9699919799/functions/ulimit.html). POSIX originally used this name for process limits, but later deprecated the name in favour of a new one called *rlimit* (resource limit).
 
-On one hand, GNU/Linux, resource limiting library functions are also implemented by [glibc](https://www.gnu.org/software/libc/manual/html_node/Limits-on-Resources.html) with **`rlimit`** in their names, like the [`prlimit()`](https://man7.org/linux/man-pages/man2/prlimit.2.html) system call,
-which can set resource limits per process. On the other hand, shell built-in to get and set resource limits on the command line in an OS user session (for child processes forked by the shell) somehow kept the old name `ulimit` in Linux. In contrast with the shell built-in, the program that can change limits for already running processes is again called [`prlimit`](https://man7.org/linux/man-pages/man1/prlimit.1.html), following the new naming convention. The consistency of naming limit related functions and programs is a mess.
+On the one hand, GNU/Linux, resource limiting library functions are also implemented by [glibc](https://www.gnu.org/software/libc/manual/html_node/Limits-on-Resources.html) with **`rlimit`** in their names, like the [`prlimit()`](https://man7.org/linux/man-pages/man2/prlimit.2.html) system call,
+which can set resource limits per process. On the other hand, the shell built-in to get and set resource limits on the command line in an OS user session (for child processes forked by the shell) somehow kept the old name `ulimit` in Linux. In contrast with the shell built-in, the program that can change limits for already running processes is again called [`prlimit`](https://man7.org/linux/man-pages/man1/prlimit.1.html), following the new naming convention. The consistency of naming limit related functions and programs is a mess.
 
 Linux also has something called *security limits*, which is basically a [PAM](https://www.man7.org/linux/man-pages/man3/pam.3.html) wrapper around *rlimit* calls to automate `ulimit` for OS user session creation, traditionally configured in [`/etc/security/limits.conf`](https://www.man7.org/linux/man-pages/man5/limits.conf.5.html).
 
-With classical resource limits, you can set limits for individual processes per OS user session. They are not per-user settings, they are per-process settings. Linux does not aggregate resource consumption of processes by owner user at all. Child processes inherit the limits set for the parent. Limits set by the shell built-in `ulimit` apply to resources. One may enforce the maximum CPU time in seconds the process can use (`-t` or `cpu`), the maximum virtual memory size (address space) (`-v` or `as`), and the maximum stack size (`-s` or `stack`) the process can allocate. Please note that limiting physical memory usage (resident set size) (`-m` or `rss`) was disabled a long time ago, in kernel 2.4.30. Setting that limit will have no effect.
+With classical resource limits, you can set limits for individual processes per OS user session. They are not per-user settings, they are per-process settings. Linux does not aggregate resource consumption of processes by owner user at all. Child processes inherit the limits set for the parent. Limits set by the shell built-in `ulimit` apply to various resources. One may enforce the maximum CPU time in seconds the process can use (`-t` or `cpu`), the maximum virtual memory size (address space) (`-v` or `as`), and the maximum stack size (`-s` or `stack`) the process can allocate. Please note that limiting physical memory usage (resident set size) (`-m` or `rss`) was disabled a long time ago, in kernel 2.4.30. Setting that limit will have no effect.
 
-You might face the need to change some of these settings every now and then. For example, increase the stack size to allow a higher value for the `max_stack_depth` PostgreSQL server parameter. Classical resource limit settings, however, are not instrumental to isolating PostgreSQL instances. Limiting CPU time is not a great idea for a relational database in general. It's also ill-advised to limit virtual memory size of a process instead of limiting actual RAM usage, but the actual RAM usage called RSS size cannot be limited in Linux. There is no way to limit I/O usage either.
+You might face the need to change some of these settings every now and then. For example, you might want to increase the stack size to allow a higher value for the `max_stack_depth` PostgreSQL server parameter. Classical resource limit settings, however, are not instrumental to isolating PostgreSQL instances. Setting a limit for the CPU time in seconds is not a great idea for a relational database in general. It's also ill-advised to limit virtual memory size of a process instead of limiting actual RAM usage, but the actual RAM usage called RSS size cannot be limited in Linux. There is no way to limit I/O usage either.
 
 
 ### Nice value
@@ -59,9 +59,9 @@ Only root can increase the priority (set a negative nice value) for a process, b
 
 Unfortunately, the terms "nice value" and "priority" are sometimes used interchangeably, which can get quite confusing. For example, the `renice` command refers to the nice value as "priority", and in classical resource limits, the two terms are even more conflated.
 
-Classical resource limits also include limits for both nice value and priority, to be applied at the user session level. With `ulimit`, you can set a limit called "scheduling priority" (`-e`), which setting limits the maximum priority of any processes started in scope of the affected session. In `limits.conf`, however, there are two limits one may define: `priority` and `nice`. If a hard limit for `priority` is set, it is interpreted and set as the nice value for all affected processes directly, which in turn affects scheduling priority as usual. In case a hard limit for `nice` is set, it changes the scheduling priority limit (`-e`) that eventually forms the maximum niceness the user can set for its processes.
+Classical resource limits also include limits for both nice value and priority, to be applied at the user session level. With `ulimit`, you can set a limit called "scheduling priority" (`-e`), which limits the maximum priority of any processes started in scope of the affected session. In `limits.conf`, however, you can define two different limits: `priority` and `nice`. If you set a hard limit for `priority`, it is interpreted and set directly as the nice value, which in turn affects scheduling priority as usual. If you set a hard limit for `nice`, it changes the scheduling priority limit (`-e`) that ist the maximum priority users can set for their processes.
 
-Database session prioritization is feasible via adjusting the nice value of its client backend process. You can also adjust the nice value of the `postgres` process, the parent of all other processes in the PostgreSQL instance. The new nice value prioritizes that particular instance over others.
+By adjusting the nice value of a PostgreSQL client backend process, you can prioritize the given database session over others. You can also adjust the nice value for the `postgres` process, the parent of all other processes in the PostgreSQL instance. The new nice value prioritizes that particular instance over others.
 
 Prioritizing disk I/O for processes is also possible in Linux via [`ionice`](https://man7.org/linux/man-pages/man1/ionice.1.html) on the command line, and via the [`ioprio_set()`](https://man7.org/linux/man-pages/man2/ioprio_set.2.html) system call programmatically, but the technique requires the kernel to use the [CFQ scheduler]( https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt) for the disk devices used by PostgreSQL. Although using CFQ scheduler is usually feasible, it may not be the default I/O scheduler in your distribution of choice, and might just not be the best option for your particular workload.
 
@@ -70,11 +70,11 @@ Prioritizing disk I/O for processes is also possible in Linux via [`ionice`](htt
 A more recent and more featureful resource management solution implemented in the Linux kernel is *cgroups* ([Control Groups](https://docs.kernel.org/admin-guide/cgroup-v1/cgroups.html)), originally developed by Google engineers, which ran by the name *Process Containers* at that time. It is one of the main pillars of today's container technologies running on Linux, along with Linux namespaces.
 
 Cgroups allows processes to be organized into a hierarchy of groups, and provides control over resource consumption for those groups of processes. 
-Each process inside a cgroup has the limits of that cgroup imposed on it. 
+Each process inside a cgroup has the limits of that cgroup imposed. 
 
-Wide variety of controllers are available for cgroups to limit the consumption of different resource types: CPU, memory, block I/O etc. These controllers provide significant improvements for fine-grained resource consumption control over earlier solutions.
+A wide variety of controllers are available in cgroups to limit the consumption of different resource types, including CPU, memory and block I/O. These controllers provide significant improvements for fine-grained resource consumption control over earlier solutions.
 
-In 2015, a new version of cgroups, [*cgroups-v2*](https://docs.kernel.org/admin-guide/cgroup-v2.html) made its way into the Linux kernel (in version 4.5). cgroups v2 is also commonly referred to as the *unified hierarchy*, because this feature was probably the most significant change overall aiming simplicity over unnecessary flexibility. While the more flexible v1 earlier assigned each controller its own mount point under `/sys/fs/cgroup/`, *unified hierarchy* mounts all groups under the single `/sys/fs/cgroup` hierarchy. On top of that, other changes were introduced as well affecting I/O and memory control. Newer Linux distributions are using cgroups-v2 now, but from time to time you may still meet Linux installations with cgroups v1 still.
+In 2015, a new version of cgroups, [*cgroups-v2*](https://docs.kernel.org/admin-guide/cgroup-v2.html) made its way into the Linux kernel (in version 4.5). Cgroups v2 is also commonly referred to as the *unified hierarchy*, because this feature was probably the most significant change overall aiming simplicity over unnecessary flexibility. While the more flexible v1 earlier assigned each controller its own mount point under `/sys/fs/cgroup/`, *unified hierarchy* mounts all groups under the single `/sys/fs/cgroup` hierarchy. On top of that, other changes were introduced as well affecting I/O and memory control. Newer Linux distributions are using cgroups-v2 now, but from time to time you may still meet Linux installations with cgroups v1 still.
 
 
 ## Using systemd for resource management
@@ -252,11 +252,11 @@ The name of the template service unit will be `postgresql-<ver>@.service`, where
 
 To instantiate a template, a certain value will need to go between `@` and `.service` in its name. In our case, a systemd service unit instance will be created for each PostgreSQL instance as `postgresql-<ver>@<cluster_name>.service`, where `<cluster_name>` is the name of the PostgreSQL server instance. 
 
-NOTE: PostgreSQL *cluster* is just another name for PostgreSQL server instance, it has nothing to do with HA clusters. More precisely, a culster is the set of databases that a PostgreSQL server instance is managing, typically located in the data directory.
+Note that PostgreSQL *cluster* is just another name for PostgreSQL server instance, it has nothing to do with HA clusters. More precisely, a culster is the set of databases that a PostgreSQL server instance is managing, typically located in the data directory.
 
 What comes between `@` and `.service` is also a variable, which is used inside the template. In our case, it is the `<cluster_name>`, which will be used to point to the data directory of the given cluster.
 
-Notice the `%i` placeholder in the unit descriptor. `%i` is where our variable value (the `<cluster_name>`) should be substituted. It specifies the location of the data directory by the `POSTGRES_DATADIR` environment variable. The evaluated `POSTGRES_DATADIR` environment valuable is then passed to the `postgresql-script` when starting the database. Please note that each distribution does this slightly differently.
+Notice the `%i` placeholder in the unit descriptor. The `%i` placeholder is where our variable value (the `<cluster_name>`) will be substituted. It specifies the location of the data directory. In our case, the data directory is defined in the `POSTGRES_DATADIR` environment variable, which is passed to the `postgresql-script` when PostgreSQL is started. Please note that each distribution does this slightly differently.  
 
 You can now simply instantiate a service unit and start the new service by passing the cluster name to systemctl. Please note, that the data directory must exist before starting the service.
 
@@ -275,7 +275,7 @@ Per-instance resource control settings can be provided in the `[Service]` sectio
 
 The settings you define in the file will be picked up by systemd as drop-in, and will merge it into its main configuration.
 
-You always have to run the `systemctl daemon-reload` command after changing systemd unit files or drop-ins to reload the new definitions. After a successful reload, restart the service using the `systemctl restart` command.
+You need to run the `systemctl daemon-reload` command after changing systemd unit files or drop-ins to reload the new definitions. After a successful reload, restart the service using the `systemctl restart` command.
 
 Let's now look at some useful resource control settings you can put into the drop-in files.
 
@@ -297,7 +297,7 @@ For example, to allot 8GiB of RAM to the instance, specify `MemoryHigh=8G`.
 #### Prioritizing an instance
 You can use the `Nice` setting, as shown above.
 
-For example, to give more priority to you instance, specify `Nice=-15`.
+For example, to give more priority to your instance, specify `Nice=-15`.
 Priority can be set in the range of -20, 19, and please remember that a nicer process is lower priority.
 
 #### Putting it all together
