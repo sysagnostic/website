@@ -4,7 +4,7 @@ author: sysagnostic
 custom_css:
   - css/custom.css
 google_analytics_id: G-N6ZDBM8K2Z
-post_share: false
+post_share: true
 plugins:
   css:
     - link: plugins/bootstrap/bootstrap.min.css
