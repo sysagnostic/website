@@ -14,7 +14,7 @@ tags:
   - recap
 ---
 
-Amazon once again introduced hundreds of new features for their public cloud platform, Amazon Web Services. Sysagnostic attended a re:Cap [meetup](https://www.meetup.com/aws-serverless-budapest/events/305715582/), which is an event based on the original re:Invent 2024. The re:Cap was organized by [SnapSoft](https://snapsoft.io/), and took place in the SnapSoft headquarters. As our company focuses on cost-effective solutions, this article hand-picks two topics related to cost-effectiveness that were mentioned during the 2024 re:Cap meetup or during the AWS re:Invent event.
+Amazon once again introduced hundreds of new features for their public cloud platform, Amazon Web Services. Sysagnostic attended a re:Cap [meetup](https://www.meetup.com/aws-serverless-budapest/events/305715582/), which is an event based on the original re:Invent 2024. The re:Cap was organized by [SnapSoft](https://snapsoft.io/), and took place in the SnapSoft headquarters. As our company focuses on cost-efficient solutions, this article hand-picks two topics related to cost efficiency that were mentioned during the 2024 re:Cap meetup or during the AWS re:Invent event.
 
 ## Aurora Serverless v2
 The workload for an AWS Aurora Serverless database may plummet to zero for hours or even days. A good example would be a UAT database instance that is only used during business hours. There is no need to use nor pay for a service outside business hours, but compared to other serverless services, you have had to pay for the database service's non-zero Aurora Capacity Units (ACU) anyways, until recently.
