@@ -6,7 +6,7 @@ description: "Takeaways of an AWS re:Invent 2024 re:Cap meetup"
 publishDate: null
 date: 2025-02-22
 Image_webp: images/blog/aws-reinvent-2024-recap.webp
-image: images/blog/aws.jpg
+image: images/blog/aws-reinvent-2024-recap.png
 tags:
   - aws
   - meetup
