@@ -32,10 +32,10 @@ Does it all mean that high-level isolation is impossible? Thankfully, it does no
 After a run-down of some basic resource control techniques in Linux, we are going to cover how the desired level of resource management may be achived via systemd, and how to configure it specifically for PostgreSQL.
 
 
-## Core Linux technologies for resource management
+# Core Linux technologies for resource management
 Sharing server resources between users has always been the norm since the very early ages of computing. Controlling shared resource consumption came as a natural requirement. Some of the older tools discussed here date back to the 1970's, but even the most recent core technology originated as early as the late 2000's. That means there's a good chance you've already heard about the following technologies. Let's take a quick look.
 
-### Classical resource limits
+## Classical resource limits
 What first comes to mind is the age-old resource limiting solution commonly referred to as [ulimit](https://pubs.opengroup.org/onlinepubs/9699919799/functions/ulimit.html). POSIX originally used this name for process limits, but later deprecated the name in favour of a new one called *rlimit* (resource limit).
 
 On the one hand, GNU/Linux, resource limiting library functions are also implemented by [glibc](https://www.gnu.org/software/libc/manual/html_node/Limits-on-Resources.html) with **`rlimit`** in their names, like the [`prlimit()`](https://man7.org/linux/man-pages/man2/prlimit.2.html) system call,
@@ -48,7 +48,7 @@ With classical resource limits, you can set limits for individual processes per 
 You might face the need to change some of these settings every now and then. For example, you might want to increase the stack size to allow a higher value for the `max_stack_depth` PostgreSQL server parameter. Classical resource limit settings, however, are not instrumental to isolating PostgreSQL instances. Setting a limit for the CPU time in seconds is not a great idea for a relational database in general. It's also ill-advised to limit virtual memory size of a process instead of limiting actual RAM usage, but the actual RAM usage called RSS size cannot be limited in Linux. There is no way to limit I/O usage either.
 
 
-### Nice value
+## Nice value
 As for setting priorities, another long-standing POSIX concept called [*nice value*](https://pubs.opengroup.org/onlinepubs/9799919799/functions/nice.html) may come to mind.
 
 A "nicer" process consumes less resources, which means increasing niceness will make the process lower priority, or in other words the CPU scheduler will favour the process less. Child processes will inherit their priority and nice values from their parents.
@@ -66,7 +66,7 @@ By adjusting the nice value of a PostgreSQL client backend process, you can prio
 Prioritizing disk I/O for processes is also possible in Linux via [`ionice`](https://man7.org/linux/man-pages/man1/ionice.1.html) on the command line, and via the [`ioprio_set()`](https://man7.org/linux/man-pages/man2/ioprio_set.2.html) system call programmatically, but the technique requires the kernel to use the [CFQ scheduler]( https://www.kernel.org/doc/Documentation/block/cfq-iosched.txt) for the disk devices used by PostgreSQL. Although using CFQ scheduler is usually feasible, it may not be the default I/O scheduler in your distribution of choice, and might just not be the best option for your particular workload.
 
 
-### Control groups
+## Control groups
 A more recent and more featureful resource management solution implemented in the Linux kernel is *cgroups* ([Control Groups](https://docs.kernel.org/admin-guide/cgroup-v1/cgroups.html)), originally developed by Google engineers, which ran by the name *Process Containers* at that time. It is one of the main pillars of today's container technologies running on Linux, along with Linux namespaces.
 
 Cgroups allows processes to be organized into a hierarchy of groups, and provides control over resource consumption for those groups of processes. 
@@ -74,19 +74,19 @@ Each process inside a cgroup has the limits of that cgroup imposed.
 
 A wide variety of controllers are available in cgroups to limit the consumption of different resource types, including CPU, memory and block I/O. These controllers provide significant improvements for fine-grained resource consumption control over earlier solutions.
 
-In 2015, a new version of cgroups, [*cgroups-v2*](https://docs.kernel.org/admin-guide/cgroup-v2.html) made its way into the Linux kernel (in version 4.5). Cgroups v2 is also commonly referred to as the *unified hierarchy*, because this feature was probably the most significant change overall aiming simplicity over unnecessary flexibility. While the more flexible v1 earlier assigned each controller its own mount point under `/sys/fs/cgroup/`, *unified hierarchy* mounts all groups under the single `/sys/fs/cgroup` hierarchy. On top of that, other changes were introduced as well affecting I/O and memory control. Newer Linux distributions are using cgroups-v2 now, but from time to time you may still meet Linux installations with cgroups v1 still.
+In 2015, a new version of cgroups, [*cgroups-v2*](https://docs.kernel.org/admin-guide/cgroup-v2.html) made its way into the Linux kernel (in version 4.5). Cgroups v2 is also commonly referred to as the *unified hierarchy*, because this feature was probably the most significant change overall, aiming simplicity over unnecessary flexibility. While the more flexible v1 earlier assigned each controller its own mount point under `/sys/fs/cgroup/`, *unified hierarchy* mounts all groups under the single `/sys/fs/cgroup` hierarchy. On top of that, other changes were introduced as well affecting I/O and memory control. Newer Linux distributions are using cgroups-v2 now, but from time to time you may still meet Linux installations with cgroups v1 still.
 
 
-## Using systemd for resource management
+# Using systemd for resource management
 You can use those core Linux technologies introduced above in a more centralized (and perhaps less confusing) manner by an even more recent technology, [*systemd*](https://man7.org/linux/man-pages/man1/init.1.html). It is an init system and service manager for GNU/Linux, originally developed by Red Hat, and later adopted by all major Linux distributions, following long and heated debates. Systemd is now wide-spread, and you must get familiar with it if you haven't done so.
 
-This article focuses on resource management solutions based on systemd. But just before we get to that, let's briefly look at how systemd organizes its managed processes.
+Part 2 focuses on resource management solutions based on systemd. But just before we get to that, let's briefly look at how systemd organizes its managed processes.
 
 
-### Systemd unit types
+## Systemd unit types
 Systemd manages different types of units. Important types for the purpose of this article are: *service*, *scope* and *slice*.
 
-#### Services and scopes
+### Services and scopes
 You are most probably familiar with service units. A *service* runs one or more processes, or in other words, a service is a logical group of processes. A service unit is defined in its [*unit file*](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) named `<something>.service`.
 
 A *scope* is created automatically by systemd for each user session (and some other things) running in Linux. A scope is also a logical group of processes. The difference between service and scope is that the processes in a scope are not started directly by systemd, they are merely assigned to the scope by systemd. That is also why you cannot define a scope in a unit file.
@@ -99,7 +99,7 @@ You can use the `systemctl --type scope` command to list scopes.
     session-357691.scope loaded active running Session 357691 of user root
 
 
-#### Slices
+### Slices
 A *slice* is a group of services and scopes, not of individual processes directly: it is one level higher. A slice is defined in its own unit file `<name>.slice`.
 
 You can use the `systemctl --type slice` command to list slices.
@@ -127,7 +127,7 @@ Below the root slice, there are at least two other slices:
 The name of a slice indicates the path to it in the hierarchy. In general, slice names look like this: `<parent>-<child>-<grandchild>.slice`. 
 
 
-### Cgroups managed by systemd
+## Cgroups managed by systemd
 Now let's take a look at how cgroups is integrated into systemd.
 
 Systemd maintains a default cgroups hierarchy, following its own hierarchy of slices, services and scopes.
@@ -172,7 +172,7 @@ You can use the `systemctl show` command to see the current settings for a unit,
 We will come back to some specific resource control settings shortly. Before we do that, let's touch upon the older limiting techniques once more, to see how they integrate into systemd.
 
 
-### Classical resource limits managed from systemd
+## Classical resource limits managed from systemd
 A systemd service unit can have rlimit (ulimit) parameters defined for it, which apply to all of the processes included in that unit. 
 There is a [mapping between ulimit and systemd parameter names](https://www.freedesktop.org/software/systemd/man/systemd.exec.html#id-1.12.2.1.17.6).
 
@@ -182,7 +182,7 @@ To check rlimit settings for a systemd unit, you can use the `systemctl show` co
 
 (To check rlimit settings for an individual process, you can read the `/proc/<PID>/limits` file.)
 
-### Nice configuration managed by systemd
+## Nice configuration managed by systemd
 Nice value can also be defined via systemd service unit files.
 
 To check the nice value setting for a systemd unit, you can use the `systemctl show` command.
@@ -191,5 +191,5 @@ To check the nice value setting for a systemd unit, you can use the `systemctl s
 
 To check the priority and nice value of an individual process, you can use the `ps -o pid,comm,pri,ni -q <PID>` command.
 
-## To be continued...
+# To be continued...
 In [Part 2](/blog/isolating-postgres-instances-p2) of this article, we will look at how to configure isolation of resource consumption for PostgreSQL via systemd.

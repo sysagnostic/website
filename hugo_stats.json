@@ -220,6 +220,7 @@
       "cicd",
       "classical-resource-limits",
       "classical-resource-limits-managed-from-systemd",
+      "closing-thoughts",
       "cloud-infrastructure",
       "conclusion",
       "configuring-resource-consumption-isolation-of-postgresql-instances-via-systemd",

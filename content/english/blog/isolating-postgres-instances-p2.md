@@ -17,13 +17,13 @@ tags:
 - scheduling
 - postgresql
 ---
-Having looked at the general resource limit settings in [Part 1](/blog/isolating-postgres-instances-p1), let's put them to use by configuring isolation of resource consumption for PostgreSQL via systemd.
+In [Part 1](/blog/isolating-postgres-instances-p1) we have looked at some core systemd concepts, and general resource limit settings in Linux. Let's put all of that to use by configuring isolation of resource consumption for PostgreSQL via systemd.
 
-## Configuring resource consumption isolation of PostgreSQL instances via systemd
+# Configuring resource consumption isolation of PostgreSQL instances via systemd
 
 We will take a look at how service units can be set up, and what unit file parameters may be used for resource control purposes.
 
-### Setting up systemd service units for PostgreSQL instances
+## Setting up systemd service units for PostgreSQL instances
 Most Linux distributions have a default PostgreSQL service unit (like `postgresql.service`), for a simple setup, with a single PostgreSQL server instance. The example unit file was copied from SuSE Linux distribution, but of course it can be slightly different on each distribution:
 
     root@sysagnostic:~ # systemctl cat postgresql.service
@@ -59,7 +59,7 @@ A better way to add such parameters is to use the drop-in configuration mechanis
 
 Some Linux distributions will do it for you automatically. For example, in Debian, you can use [`pg_createcluster`](https://manpages.debian.org/bookworm/postgresql-common/pg_createcluster.1.en.html) to have a service unit created, while in other distributions you have to create the service units yourself.
 
-#### Template service and instantiated services
+### Template service and instantiated services
 Systemd can handle something called a [*template service*](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html#Service%20Templates). A template service is a special service unit that can be instantiated. In our case, the instantiated service units will serve as the actual service units for the different PostgreSQL server instances.
 
 The name of the template service unit will be `postgresql-<ver>@.service`, where `<ver>` is the PostgreSQL major version. Notice `@` in the name. Here is what the unit file could look like: 
@@ -86,7 +86,7 @@ What comes between `@` and `.service` is also a variable, which is used inside t
 
 Notice the `%i` placeholder in the unit descriptor. The `%i` placeholder is where our variable value (the `<cluster_name>`) will be substituted. It specifies the location of the data directory. In our case, the data directory is defined in the `POSTGRES_DATADIR` environment variable, which is passed to the `postgresql-script` when PostgreSQL is started. Please note that each distribution does this slightly differently.  
 
-You can now simply instantiate a service unit and start the new service by passing the cluster name to systemctl. Please note, that the data directory must exist before starting the service.
+You can now simply instantiate a service unit and start the new service by passing the cluster name to systemctl. Please note that the data directory must exist before starting the service.
 
     systemctl start postgresql-17@mypg1.service
 
@@ -95,7 +95,7 @@ To start another instance, just pass another cluster name:
     systemctl start postgresql-17@mypg2.service
 
 
-### Setting up resource control per PostgreSQL instance
+## Setting up resource control per PostgreSQL instance
 
 Now that you have set up service units, you can add resource control parameters. "But how?", you might wonder, because you've only created a single template unit file. 
 
@@ -107,7 +107,7 @@ You need to run the `systemctl daemon-reload` command after changing systemd uni
 
 Let's now look at some useful resource control settings you can put into the drop-in files.
 
-#### Limiting CPU usage 
+### Limiting CPU usage 
 You can use the [`CPUQuota`](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html#CPUQuota=
 ) setting to limit CPU usage, which is a percentage value. The percentage specifies how much CPU time the unit can get at maximum, relative to the total CPU time available to the operating system for scheduling.
 
@@ -115,20 +115,20 @@ For example, to assign one full CPU to the instance, specify `CPUQuota=100%`. To
 
 > This parameter will affect the `CPUQuotaPerSecUSec` attribute of the systemd service unit, which shows how many CPU seconds the process will get for 1 wall-clock second. For  example, for `50%` it will show as `500ms`, and for `200%` as `2s`.
 
-#### Limiting RAM usage
+## Limiting RAM usage
 You can use the [`MemoryHigh`](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html#MemoryHigh=bytes) setting to limit RAM usage.
 
 For example, to allot 8GiB of RAM to the instance, specify `MemoryHigh=8G`.
 
 > It is not a hard limit, which means the service unit may consume more memory, and it won't be killed. When memory consumption goes beyond that limit, however, the processes within the service unit are slowed down, and memory is taken away from them aggressively.
 
-#### Prioritizing an instance
+### Prioritizing an instance
 You can use the `Nice` setting, as shown above.
 
 For example, to give more priority to your instance, specify `Nice=-15`.
 Priority can be set in the range of -20, 19, and please remember that a nicer process is lower priority.
 
-#### Putting it all together
+### Putting it all together
 Set up one service:
 
     root@sysagnostic:~ # cat /etc/systemd/system/postgresql-17@mypg1.service.d/99-resource-control.conf
@@ -169,7 +169,7 @@ Check settings for the second service:
     MemoryHigh=8589934592
     Nice=0
 
-### Setting up resource control for a group of PostgreSQL instances 
+## Setting up resource control for a group of PostgreSQL instances 
 Systemd automatically assigns instantiated service units to a slice unit that is named after their template unit. In our case, all PostgreSQL service units will be assigned to a slice unit called `system-postgresql.slice`. 
 
     root@sysagnostic:~ # systemd-cgls --unit system-postgresql.slice
@@ -196,3 +196,7 @@ Systemd automatically assigns instantiated service units to a slice unit that is
 You can configure resource control for a slice by creating a unit file for the slice unit. Settings defined in that unit file (in the `[Slice]` section) will apply to all the PostgreSQL instances it contains, regardless of the settings for each instance.
 
 You can also set up your own slices. To define a slice, create a unit file for it. To assign a service to a slice, set `slice=<name>.slice` in the `[Service]` section.
+
+# Closing thoughts
+
+We've seen how traditional resource limits work in Linux, and how we can utilize systemd for isolating resource consumption for PostgreSQL. Systemd has grown to be a stable piece of technology, and it can be useful in an environment with virtual machines. A growing number of businesses, however, are migrating to a more modern form of isolation: containers. It is outside the scope of this article to discuss containers at length, but we will get back to that topic in another article.
