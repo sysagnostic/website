@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 author: "Tamas Rebeli"
 title: Isolating resource consumption for PostgreSQL instances in Linux – Part 2
 description: Overview of core Linux techniques, and using systemd to set resource limits per PostgreSQL instance
