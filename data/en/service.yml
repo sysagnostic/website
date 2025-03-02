@@ -4,22 +4,22 @@ service:
   service_item :
     - name: DevSecOps
       icon: ti-bar-chart
-      content: Our team is always open for new DevSecOps project contracts. We cover our responsibilities with meticulous and well documented implementations. Our goal is project manager customer satisfaction.
+      content: Our team is always open for new DevSecOps project contracts. We cover our responsibilities with meticulous and well-documented implementations. Our goal is project manager satisfaction.
     - name: Product Support
       icon: ti-support
-      content: The company's senior computer science engineers provide 24/7 hotline product support services for your business. We are happy to help your engineers should they face any product issues in the future.
-    - name: Reduce Costs
+      content: Our senior engineers provide 24/7 hotline product support services for your business. We are ready to assist your engineers should you face any product issues.
+    - name: Cost Reduction
       icon: ti-money
-      content: Many software vendors recently raised their already high product license and support prices dramatically. Let us help you reshape your IT costs by recommending a cheaper or even a license cost free solution.
-    - name: Showcase FOSS/AWS
+      content: Some software vendors have recently raised their already high product license and support fees dramatically. Let us help you curb your IT spending by switching to more cost-efficient or free license solutions.
+    - name: FOSS/AWS Showcasing
       icon: ti-blackboard
-      content: We believe that a proof of concept is more valuable than any slideshow. Hire us to show you in your systems how cloud and free and open source enterprise software is able to serve your business needs.
-    - name: Automate Infrastructure
+      content: We believe that a proof of concept is more valuable than any slideshow. Hire us to demonstrate to you in your own system how cloud and FOSS enterprise software is able to serve your business needs.
+    - name: Infrastructure Automation
       icon: ti-control-play
-      content: Sysagnostic is ready to help you implement a new Infrastructure as Code ecosystem, maintain an existing one or extend its outreach via our infrastructure code development services.
-    - name: Optimize Performance
+      content: Sysagnostic is keen to help you implement Infrastructure as Code ecosystems, maintaning an existing one, or introducing new solutions via our infrastructure code development services.
+    - name: Performance Optimization
       icon: ti-rocket
-      content: System performance depends on numerous technologies, architecture concepts, networking aspects, etc. Our colorful track record provides the holistic mindset required to tune your systems.
+      content: Good system performance hinges on numerous aspects, including architectural concepts, technologies deployed and infrastructural elements. Our colorful track record endows us with a holistic mindset for tuning your systems.
     - name: Infrastructure Hardening
       icon: ti-rocket
       content: Systems hardening is often overlooked. Let us apply our methodical approach to audit, identify, close, and control potential security vulnerabilities throughout your organization.
