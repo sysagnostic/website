@@ -11,4 +11,4 @@ social:
     link : "https://github.com/rblst"
 ---
 
-Computer Science Engineer MSc. 13+ years consulting background. Black belt Oracle+PostgreSQL DBA & educator. Experienced middleware DevSecOps engineer. Linux, IT security, IDM and FOSS enthusiast.
+Computer Science Engineer MSc with 13+ years of consulting background. Seasoned Oracle and PostgreSQL DBA and educator. Experienced systems engineer. FOSS enthusiast.
