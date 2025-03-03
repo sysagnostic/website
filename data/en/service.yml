@@ -7,19 +7,19 @@ service:
       content: Our team is always open for new DevSecOps project contracts. We cover our responsibilities with meticulous and well-documented implementations. Our goal is project manager satisfaction.
     - name: Product Support
       icon: ti-support
-      content: Our senior engineers provide 24/7 hotline product support services for your business. We are ready to assist your engineers should you face any product issues.
+      content: Our senior engineers provide 24/7 hotline product support services for your business. We are ready to assist your company should your engineers face any product issues during development or in production.
     - name: Cost Reduction
       icon: ti-money
       content: Some software vendors have recently raised their already high product license and support fees dramatically. Let us help you curb your IT spending by switching to more cost-efficient or free license solutions.
-    - name: FOSS/AWS Showcasing
+    - name: Showcasing
       icon: ti-blackboard
-      content: We believe that a proof of concept is more valuable than any slideshow. Hire us to demonstrate to you in your own system how cloud and FOSS enterprise software is able to serve your business needs.
-    - name: Infrastructure Automation
+      content: We believe that a proof of concept is superior to any slideshow. Let us demonstrate it to you how your enterprise could be transformed into a modern, free and open-source cloud ecosystem that reduces your operational costs.
+    - name: IaC Automation
       icon: ti-control-play
-      content: Sysagnostic is keen to help you implement Infrastructure as Code ecosystems, maintaning an existing one, or introducing new solutions via our infrastructure code development services.
-    - name: Performance Optimization
+      content: Repeatability leads to cost-efficiency. Sysagnostic is keen to help you implement Infrastructure as Code ecosystems, maintaning an existing one, or introducing new solutions via our infrastructure code development services.
+    - name: Performance Tuning
       icon: ti-rocket
       content: Good system performance hinges on numerous aspects, including architectural concepts, technologies deployed and infrastructural elements. Our colorful track record endows us with a holistic mindset for tuning your systems.
     - name: Infrastructure Hardening
       icon: ti-rocket
-      content: Systems hardening is often overlooked. Let us apply our methodical approach to audit, identify, close, and control potential security vulnerabilities throughout your organization.
+      content: Systems hardening is often overlooked. Let us apply our methodical approach to audit, identify, close, and control potential security vulnerabilities throughout your organization regarding system components, and relevant governance processes.
