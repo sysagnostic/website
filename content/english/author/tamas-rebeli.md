@@ -11,4 +11,4 @@ social:
     link : "https://github.com/rblst"
 ---
 
-Computer Science Engineer MSc with 13+ years of consulting background. Seasoned Oracle and PostgreSQL DBA and educator. Experienced systems engineer. FOSS enthusiast.
+Computer Science Engineer MSc with 13+ years of consulting background. Seasoned Oracle and PostgreSQL database administrator and educator. Experienced systems engineer. Free and open-source software enthusiast.

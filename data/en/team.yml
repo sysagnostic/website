@@ -6,7 +6,7 @@ team:
       image_webp: images/team/tamas-rebeli.webp
       image: images/team/tamas-rebeli.jpg
       designation: CEO/Founder/DevSecOps engineer
-      content: Computer Science Engineer MSc. 13+ years consulting background. Black belt Oracle+PostgreSQL DBA & educator. Experienced middleware DevSecOps engineer. Linux, IT security, IDM and FOSS enthusiast.
+      content: Computer Science Engineer MSc with 13+ years of consulting background. Seasoned Oracle and PostgreSQL database administrator and educator. Experienced systems engineer. Free and open-source software enthusiast.
       social :
         - icon: ti-user
           link: "/team/tamas-rebeli"
