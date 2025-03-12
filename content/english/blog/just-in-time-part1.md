@@ -5,8 +5,8 @@ title: Just-in-time - Part 1
 description: Case study on how great out of the box technology can lead to lazyness.
 #publishDate: 2025-03-10
 date: 2025-03-10
-Image_webp: images/blog/java-codecache-cover.webp
-image: images/blog/java-codecache-cover.jpg
+Image_webp: images/blog/just-in-time-cover.webp
+image: images/blog/just-in-time-cover.jpg
 tags:
   - java
   - tuning
@@ -20,7 +20,7 @@ Great solutions are like essential civil engineering infrastructure elements: dr
 
 Code may execute in many different ways. Certain ways are faster, certain ways are more portable, others just make sense for different reasons. Let's see a few examples how software developed via different programming platforms execute.
 
-![Code execution](/images/blog/java-codecache-exec.svg)
+![Code execution](/images/blog/just-in-time-exec.svg)
 
 This article focuses on the highlighted runtime transformation. Before digging deep into how Java's JIT works, let's see a few basic concepts regarding when compilation may occur in theory:
 
@@ -28,7 +28,7 @@ This article focuses on the highlighted runtime transformation. Before digging d
 - interpreted (INT): Don't compile the software during build time, just ship it, and deal with any compilation during execution. Traditionally Python is a good example for an interpreted language.
 - just-in-time (JIT): Combination of AOT and INT. May compile some of the software during build time, ship it, compile and re-compile some of it later right before execution. Java and C# are the most commonly used software development languages that use JIT for compilation.
 
-![Code compilation](/images/blog/java-codecache-compilers.svg)
+![Code compilation](/images/blog/just-in-time-compilers.svg)
 
 
 ## Just-in-time compiler
