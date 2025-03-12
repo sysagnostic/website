@@ -2,7 +2,7 @@
 draft: true
 author: David Lakatos
 title: Just-in-time - Part 2
-description: Case study on how great out of the box technology can lead to lazyness.
+description: Case study on how great out of the box technology can lead to laziness.
 #publishDate: 2025-03-12
 date: 2025-03-12
 Image_webp: images/blog/just-in-time-cover.webp
@@ -73,7 +73,7 @@ The situation is not as bad as it sounds until the experience with JIT is the sa
 
 Software products mature by time, they are usually extended with new features and more dependencies, leading to an ever growing code base (software shrinks rarely in code volume). All looks good in UAT, new version of the product is released into production. For days, maybe even for a week, the production system works as expected. Suddenly, a major production outage covers all observability dashboards in red, all horizontally scaled instances seem to crash or slow down dramatically one after another. What happened? JIT gradually filled its code cache, so - depending on the configuration - the JVM exited or continued to emulate execution of bytecode in an interpreted manner.
 
-This kind of issue is the most common and destructive pitfall of JIT: the just-in-time compiler's undeterministic, but too good out of the box behavior. In this example, no one performed soak tests that would be able to identify JIT related weaknesses, nor did anyone monitor JIT's internal state to early detect a growing issue in the production system. As I said, JIT being too good can lead to engineer lazyness.
+This kind of issue is the most common and destructive pitfall of JIT: the just-in-time compiler's undeterministic, but too good out of the box behavior. In this example, no one performed soak tests that would be able to identify JIT related weaknesses, nor did anyone monitor JIT's internal state to early detect a growing issue in the production system. As I said, JIT being too good can lead to engineer laziness.
 
 ## Avoiding JIT pitfalls
 
