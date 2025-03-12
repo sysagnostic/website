@@ -38,13 +38,25 @@ Client and server JVMs have different goals regarding code execution. Client VMs
 
 Without tiered compilation, the JVM either uses the client or the server compiler based on the VM's corresponding settings. The client compiler produces non-profiled non-optimized native code quickly. On the other hand, the server compiler outputs non-profiled optimized native code through a slower compilation process that involves optimization steps.
 
-Tiered compilation unites the benefits of client VM and server VM preferences. It aims to start up quickly, incrementally optimize hot code, while maintaining a reduced memory footprint. In order to achieve its goals, tiered compiler flags all bytecode segments with one of the following related compilation level designators.
+Tiered compilation unites the benefits of client VM and server VM preferences. It aims to start up quickly, incrementally optimize hot code, while maintaining a reduced memory footprint. In order to achieve its goals, tiered compiler flags all bytecode segments with one of the following related compilation level designators. Tiered compilation by using levels of optimization, achieves faster startup, better overall server performance (longer code profiling, more accurate data to fuel compiler heuristics), and lower code cache memory footprint.
 
-1. Interpreted: Bytecode execution is profiled and emulated by the interpreter. The collected profiling statistics are stored in the code cache.
-1. C1: Profiled native code is compiled by the client VM compiler. Native code is stored in the code cache for further use, along with the collected profiling statistics.
-1. C2: Non-profiled native code is compiled by the server VM compiler. Native code is stored in the code cache for further use. The code is non-profiled, so no statistics are collected.
+Code segments are optimized by incrementing their assigned levels. The algorithm of how and when certain bytecode segments are compiled when using tiered compilation is out of scope for this article due to its high complexity. Tiered compilation hence does not take `-XX:CompileThreshold` into account.
 
-Eventually, tiered compilation achieves faster startup, better overall server performance (longer code profiling, more accurate data to fuel compiler heuristics), and lower code cache memory footprint.
+
+### Level 0: Interpreted
+
+Bytecode execution is profiled and emulated by the interpreter. The collected profiling statistics are stored in the code cache.
+
+
+### Level 1-3: C1
+
+C1 compilation may be separated to 3 levels all compiled by the client VM compiler, but these levels differ in profiling settings. On level 1, trivial methods without the possibility of further optimization are non-profiled. Levels 2 and 3 provide some sort of profiled native code without significant optimization efforts. Native code is always stored in the code cache for further use, along with the collected profiling statistics if collected.
+
+
+### Level 4: C2
+
+Non-profiled native code is compiled by the server VM compiler. Native code is stored in the code cache for further use. The code is non-profiled, so no statistics are collected.
+
 
 ## Commonly used JIT tuning JVM options
 
