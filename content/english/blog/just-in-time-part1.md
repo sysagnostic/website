@@ -14,19 +14,19 @@ tags:
   - jit
 ---
 
-Great solutions are like essential civil engineering infrastructure elements: drinking water pipes, concrete foundations, electric substations. If it works great you can forget about its existence. The Java platform and its just-in-time code compiler is very much like a civil engineering marvel. From time to time, we forget about it and how important of a role it has when it comes to Java software execution performance... until it breaks down.
+Great solutions are like essential civil engineering infrastructure elements: drinking water pipes, concrete foundations or electrical substations. If it works great, you can forget about its existence. The Java platform and its just-in-time (JIT) code compiler is very much like a civil engineering marvel. From time to time we forget about it and how important of a role it plays when it comes to Java software execution performance... until it breaks down.
 
 ## Code execution
 
-Code may execute in many different ways. Certain ways are faster, certain ways are more portable, others just make sense for different reasons. Let's see a few examples how software developed via different programming platforms execute.
+Code may execute in many different ways. Certain ways are faster, certain ways are more portable, others just make sense for different reasons. The following diagram shows a few examples of how software developed via different programming platforms will execute.
 
 ![Code execution](/images/blog/just-in-time-exec.svg)
 
-This article focuses on the highlighted runtime transformation. Before digging deep into how Java's JIT works, let's see a few basic concepts regarding when compilation may occur in theory:
+This article focuses on the highlighted runtime transformation: from Java bytecode to machine code. Before digging deep into how Java's JIT works, let's see a few basic concepts regarding different times when compilation may occur:
 
-- ahead-of-time (AOT): Compile the software during build time, ship it, and execute the compiled artifacts later. This is the most classic approach of compilation e.g. used by the C language.
-- interpreted (INT): Don't compile the software during build time, just ship it, and deal with any compilation during execution. Traditionally Python is a good example for an interpreted language.
-- just-in-time (JIT): Combination of AOT and INT. May compile some of the software during build time, ship it, compile and re-compile some of it later right before execution. Java and C# are the most commonly used software development languages that use JIT for compilation.
+- **ahead-of-time (AOT)**: Compile the software during build time, ship it, and execute the compiled artifacts later. This is the most classic approach of compilation e.g. used by the C language.
+- **interpreted (INT)**: Don't compile the software during build time, just ship it, and deal with any compilation during execution. Traditionally, Python is a good example for an interpreted language.
+- **just-in-time (JIT)**: A combination of AOT and INT. May compile some of the software during build time, ship it, compile and re-compile some of it later, right before execution. Java and C# are the most commonly used software development languages that use JIT for compilation.
 
 ![Code compilation](/images/blog/just-in-time-compilers.svg)
 
@@ -35,14 +35,14 @@ This article focuses on the highlighted runtime transformation. Before digging d
 
 JIT's dynamic compilation logic integrates the following ideas:
 
-1. <u>Build time is cheap, execution time is expensive.</u><br>Compiling in build time is cheaper, than compiling in runtime. The Java compiler compiles processor agnostic Java bytecode from Java source code.
-1. <u>The later we perform compilation the more we know about which code is executed frequently.</u><br> The Java Virtual Machine continuously collects statistics on compiled and executed Java bytecode segments so JIT knows which segments have the biggest impact on performance. Frequently executed code is labeled as "hot code".
-1. <u>Less abstraction layers mean cheaper compilation.</u><br> Java code is compiled to bytecode during build time reducing the layers of abstraction significantly between shipped and processor dependent native code. Reduction of abstraction has a significant impact on JIT performance while still keeping the shipped code portable due to Java bytecode's platform agnostic property.
-1. <u>Interpreted is more expensive than pre-compiled execution.</u><br> Since Java bytecode takes less time to compile to native code than Java source code would take, the JVM is able to start the application faster and with better overall execution performance.
+1. **Build time is cheap, execution time is expensive.** Compiling in build time is cheaper than compiling in runtime. The Java compiler compiles processor-agnostic Java bytecode from Java source code.
+1. **The later we perform compilation, the more we know about which code is executed frequently.** The Java Virtual Machine continuously collects statistics on compiled and executed Java bytecode segments, so JIT knows which segments have the biggest impact on performance. Frequently executed code is labeled as "hot code".
+1. **Fewer abstraction layers means cheaper compilation.** Java code is compiled to bytecode during build time, significantly reducing the layers of abstraction between shipped and processor-dependent native code. Reducing abstraction has a considerable impact on JIT performance, while still keeping the shipped code portable due to Java bytecode's platform-agnostic property.
+1. **Interpreted execution is more expensive than pre-compiled execution.** Since Java bytecode takes less time to compile to native code than Java source code, the JVM is able to start the application faster, and with better overall execution performance.
 
 Let's dig a little bit deeper into the relationship between JIT and hot code.
 
-Hot code is by definition executed frequently. Let's see the following Java source code and identify hot code in it:
+Hot code is by definition executed frequently. Let's see the following Java source code, and identify hot code in it:
 
 ```java
 package com.sysagnostic;
@@ -111,7 +111,7 @@ public class com.sysagnostic.App {
 }
 ```
 
-Let's make a bit more sense out of `javap`'s output, comments in bytecode section `12-36` are valid only for the first `for` cycle where `i=0`:
+Let's make a bit more sense of `javap`'s output. Comments in bytecode section `12-36` are only valid for the first iteration of the `for` loop, where `i=0`:
 
 ```java
 Compiled from "App.java"
@@ -140,7 +140,7 @@ public class com.sysagnostic.App {
       23: getstatic     #7   // get class' static field reference for constant pool location 7 (field java.lang.System.out) and push to stack stack: [ref out], var1: ref out, var2: 0, var3: int ref 0)
       26: aload_3            // load reference from variable 3 and push to stack (stack: [int ref 0, ref out], var1: ref out, var2: 0, var3: int ref 0)
       27: invokevirtual #27  // call virtual method 27 (java.lang.Integer class's toString function) on object reference on stack (int ref 0) an push result to stack (stack: [str ref 0, ref out], var1: ref out, var2: 0, var3: int ref 0)
-      30: invokevirtual #15  // call virtual method 27 (java.io.PrintStream class's println function) on object reference on stack (ref out) with//argument on stack (str ref 0) (stack: [], var1: ref out, var2: 0, var3: int ref 0)
+      30: invokevirtual #15  // call virtual method 15 (java.io.PrintStream class's println function) on object reference on stack (ref out) with//argument on stack (str ref 0) (stack: [], var1: ref out, var2: 0, var3: int ref 0)
       33: iinc          2, 1 // increment variable 2 by 0x01 (stack: [], var1: ref out, var2: 1, var3: int ref 0)
       36: goto          12   // go to byte code 12
       39: aload_1
@@ -150,7 +150,7 @@ public class com.sysagnostic.App {
 }
 ```
 
-Let's see how JIT compiles bytecode during runtime. For now, let's disable tiered compilation since it complicates things.
+Let's see how JIT compiles bytecode during runtime. For now, let's disable tiered compilation, since it complicates things.
 
 ```bash
 $ java -cp . -XX:+UnlockDiagnosticVMOptions -XX:+PrintCompilation -XX:-TieredCompilation com.sysagnostic.App
@@ -159,6 +159,6 @@ Begin!
 End!
 ```
 
-JIT compiled 17ms after JVM startup with compilation identifier 1 the jdk.internal.misc.Unsafe::getReferenceVolatile wrapper method to native code. This output was generated by not defining the `-XX:CompileThreshold` parameter that defaults to 5000. `jdk.internal.misc.Unsafe::getReferenceVolatile` has been compiled to native code since the method has been invoked at least 5000 times in 17ms after JVM startup so it became hot code by definintion. All other code has been interpreted as bytecode by the JVM for the duration of execution, including our own code.
+JIT compiled the `jdk.internal.misc.Unsafe::getReferenceVolatile` wrapper method (with compilation identifier 1) to native code 17ms after JVM startup. This output was generated without defining a value for the `-XX:CompileThreshold` parameter, which defaults to `5000`. The `jdk.internal.misc.Unsafe::getReferenceVolatile` method is compiled to native code since the method is invoked at least 5000 times in 17ms after JVM startup, so it qualifies as hot code by definintion. All other code is interpreted as bytecode by the JVM for the duration of the execution, including our own code.
 
-In Part 2 of this blog post series, we shall dive deep into how the JIT tiered compilation manages hot code optimization, how code cache is handled by the JVM, and the JIT compiler options that allow fine-tuning your production workloads.
+In Part 2 of this blog post series, we shall dive deep into how JIT tiered compilation manages hot code optimization, how code cache is handled by the JVM, and the JIT compiler options that allow you to fine-tune your production workloads.
