@@ -161,4 +161,4 @@ End!
 
 JIT compiled the `jdk.internal.misc.Unsafe::getReferenceVolatile` wrapper method (with compilation identifier 1) to native code 17ms after JVM startup. This output was generated without defining a value for the `-XX:CompileThreshold` parameter, which defaults to `5000`. The `jdk.internal.misc.Unsafe::getReferenceVolatile` method is compiled to native code since the method is invoked at least 5000 times in 17ms after JVM startup, so it qualifies as hot code by definintion. All other code is interpreted as bytecode by the JVM for the duration of the execution, including our own code.
 
-In Part 2 of this blog post series, we shall dive deep into how JIT tiered compilation manages hot code optimization, how code cache is handled by the JVM, and the JIT compiler options that allow you to fine-tune your production workloads.
+In [Part 2](/blog/just-in-time-part2/) of this blog post series, we dive deep into how the JIT tiered compilation manages hot code optimization, how code cache is handled by the JVM, and the JIT compiler options that allow fine-tuning your production workloads.
