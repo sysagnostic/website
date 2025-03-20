@@ -40,9 +40,9 @@ The JVM can operate in client or server mode. Client and server JVMs have differ
 
 Without tiered compilation, the JVM either uses the client or the server compiler, based on the VM's settings. The client compiler produces non-profiled, non-optimized native code quickly. On the other hand, the server compiler outputs non-profiled, optimized native code through a slower compilation process that involves optimization steps.
 
-Tiered compilation unites the benefits of client VM and server VM preferences. It aims at starting up quickly and optimizing hot code incrementally, while maintaining a reduced memory footprint. 
+Tiered compilation unites the benefits of client VM and server VM preferences. It aims at starting up quickly and optimizing hot code incrementally, while maintaining a reduced memory footprint.
 
-In order to achieve its goals, tiered compiler flags each bytecode segment with a compilation level designator, as discussed below. By using levels of optimization, tiered compilation achieves faster startup, better overall server performance (longer code profiling and more accurate data to fuel compiler heuristics), and lower code cache memory footprint.
+In order to achieve its goals, tiered compiler flags each bytecode segment with a compilation level designator, as discussed below. By using levels of optimization, tiered compilation achieves faster startup, faster convergence to an eventually equal overall server performance (longer code profiling and more accurate data to fuel compiler heuristics).
 
 Code segments are optimized by incrementing their assigned levels. The algorithm of how and when certain bytecode segments are compiled via tiered compilation is out of scope for this article due to its high complexity. 
 
@@ -71,7 +71,7 @@ This chapter explains the Hotspot JVM's JIT-related options. For the default val
 - `-XX:[+|-]TieredCompilation`: Toggle tiered compilation.
 - `-XX:+AggressiveOpts`: Enable experimental performance optimization features, including JIT related ones.
 - `-XX:[+|-]BackgroundCompilation`: Determines if compilers should execute without blocking the execution of the Java application. Used for testing scenarios, where deterministic execution is important.
-- `-XX:CompileThreshold`, `-Xcomp`: Only compile methods that have already been invoked in an interpreted manner the number of compile threshold times. `-Xcomp` disables the interpreter, and effectively means `-XX:CompileThreshold=0`.Ignored by tiered compilation.
+- `-XX:CompileThreshold`, `-Xcomp`: Only compile methods that have already been invoked in an interpreted manner the number of compile threshold times. `-Xcomp` disables the interpreter, and effectively means `-XX:CompileThreshold=0`. Ignored by tiered compilation.
 - `-XX:InitialCodeCacheSize`: Size of the empty code cache during JVM startup.
 - `-XX:+Inline`, `-XX:+PrintInlining`: JIT replaces method bodies in native code. Traditionally, the stack is used for passing arguments, while jumps and returns redirect code execution to the code of the invoked method. Inlining replaces the use of stack, jumps, and returns with the copy-pasted native code of the invoked method. Inlining offers better native code execution performance by introducing the tradeoff of code cache contents duplication. Usually only very hot methods are inlined, so the optimization technique can produce code with acceptable performance gain, at the expense of  an increased memory footprint.
 - `-XX:InlineSmallCode`: Limits how much native code can a method compile to that can still be inlined.
