@@ -1,9 +1,9 @@
 ---
-draft: true
+draft: false
 author: David Lakatos
 title: Just-in-time - Part 2
 description: Case study on how great out of the box technology can lead to laziness.
-#publishDate: 2025-03-12
+publishDate: 2025-03-27
 date: 2025-03-12
 Image_webp: images/blog/just-in-time-cover.webp
 image: images/blog/just-in-time-cover.jpg
