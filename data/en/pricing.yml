@@ -31,8 +31,8 @@ pricing:
         label : "Contact Us"
         link : "#contact"
     - name : T&M
-      price : €1000*
-      unit : day**
+      price : €125*
+      unit : hour**
       services:
         - Any of Our Services
         - "-"
