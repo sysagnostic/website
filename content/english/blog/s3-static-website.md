@@ -26,7 +26,7 @@ Our company created its website with a set of well-specified business intentions
 
 Really, nothing fancy there. We expect no new functionality requirement in the future that would complicate its design principles.
 
-We follow the [KISS](https://en.wikipedia.org/wiki/KISS_principle) principle as all security focused engineers should do. Less unnecessary functionality translates to higher quantity and lower severity threat vectors. If our goals may be achieved using a static website, there is no security-aware reason to go with a dynamic, probably more vulnerable one.
+We follow the [KISS](https://en.wikipedia.org/wiki/KISS_principle) principle as all security focused engineers should do. Less unnecessary functionality translates to less and lower severity threat vectors. If our goals may be achieved using a static website, there is no security-aware reason to go with a dynamic, probably more vulnerable one.
 
 In theory, there are three kinds of costs when running a website in the cloud:
 
