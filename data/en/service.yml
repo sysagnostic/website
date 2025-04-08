@@ -11,7 +11,7 @@ service:
     - name: Cost Reduction
       icon: ti-money
       content: Some software vendors have recently raised their already high product license and support fees dramatically. Let us help you curb your IT spending by switching to more cost-efficient or free license solutions.
-    - name: FOSS/AWS Showcasing
+    - name: FOSS/Cloud Showcasing
       icon: ti-blackboard
       content: We believe that a proof of concept is more valuable than any slideshow. Hire us to demonstrate to you in your own system how cloud and FOSS enterprise software is able to serve your business needs.
     - name: Infrastructure Automation
