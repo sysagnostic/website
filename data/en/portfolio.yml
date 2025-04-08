@@ -11,7 +11,7 @@ portfolio:
         - Cost Reduction
         - Performance Optimization
         - Infrastructure Hardening
-      content: A powerful, modular, & lightweight open source Jakarta (formerly Java EE) application server.
+      content: A powerful, modular, & lightweight open-source Jakarta (formerly Java EE) application server.
       link: "https://www.wildfly.org/about/"
     - name: AlmaLinux OS
       image: images/portfolio/almalinux.png
@@ -29,7 +29,7 @@ portfolio:
         - L3 Support
         - Cost Reduction
         - Infrastructure Hardening
-      content: Debian is one of the oldest operating systems based on the Linux kernel established in 1993.
+      content: One of the longest-established operating systems based on the Linux kernel, introduced in 1993.
       link: "https://www.debian.org/"
     - name: Rocky Linux
       image: images/portfolio/rocky.png
@@ -44,7 +44,7 @@ portfolio:
       image_webp: images/portfolio/opentofu.webp
       categories :
         - Infrastructure Automation
-      content: The Linux Foundation's open source infrastructure as code tool. Fork of HashiCorp's Terraform.
+      content: The Linux Foundation's open-source infrastructure as code tool. Fork of HashiCorp's Terraform.
       link: "https://opentofu.org/"
     - name: Amazon Web Services
       image: images/portfolio/aws.png
@@ -68,7 +68,7 @@ portfolio:
         - Cost Reduction
         - Performance Optimization
         - L3 Support
-      content: Oracle Hotspot alternative open source Java SE build based upon OpenJDK. Formerly named AdoptOpenJDK.
+      content: Oracle Hotspot alternative open-source Java SE build based upon OpenJDK. Formerly named AdoptOpenJDK.
       link: "https://adoptium.net/"
     - name: OpenLDAP
       image: images/portfolio/openldap.png
@@ -78,7 +78,7 @@ portfolio:
         - Cost Reduction
         - Performance Optimization
         - Infrastructure Hardening
-      content: OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol.
+      content: Open-source implementation of the Lightweight Directory Access Protocol.
       link: "https://www.openldap.org/"
     - name: PostgreSQL
       image: images/portfolio/postgresql.png
@@ -88,7 +88,7 @@ portfolio:
         - Cost Reduction
         - Performance Optimization
         - Infrastructure Hardening
-      content: Powerful & open source object-relational database system with over 35 years of active development.
+      content: Powerful & open-source object-relational database management system with over 35 years of active development.
       link: "https://www.postgresql.org/"
     - name: Proxmox VE
       image: images/portfolio/proxmox.png

@@ -40,7 +40,7 @@ pricing:
         - "-"
         - '-'
         - "*excl. VAT"
-        - "**billed by 15 min segments"
+        - "**billed in 15 min installments"
       button:
         label : "Contact Us"
         link : "#contact"
