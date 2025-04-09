@@ -972,7 +972,7 @@ a:hover {
   border-left: 1px solid rgba(236, 239, 241, 0.07);
   border-top: 1px solid rgba(236, 239, 241, 0.07);
   margin-bottom: 40px;
-  box-shadow: 2px 2px 5px rgba(44, 44, 44, 0.3), 3px 3px 0 rgba(150, 150, 150, 0.7);
+  box-shadow: 2px 2px 5px rgba(44, 44, 44, 0.3), 3px 3px 0 rgba(41, 41, 41, 0.5);
   min-height: 300pt;
 }
 
@@ -1169,6 +1169,7 @@ a:hover {
 
 .client-meta h3 {
   margin: 15px 0 5px .0;
+  font-size: 16px;
 }
 
 .client-meta span {
@@ -1233,6 +1234,17 @@ a:hover {
 
 #our-clients .item {
   margin: 10px;
+}
+
+/*=================================================================
+  Certificate section
+==================================================================*/
+#certificate > div.container {
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  max-width: 10000px;
 }
 
 /*=================================================================

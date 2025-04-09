@@ -67,6 +67,47 @@ jQuery(function ($) {
 	});
 
 	/* ========================================================================= */
+	/*	Certificates Carousel
+	/* =========================================================================  */
+
+	$("#certificates").slick({
+		infinite: true,
+		arrows: false,
+		autoplay: true,
+		autoplaySpeed: 3600,
+		slidesToShow: 7,
+		slidesToScroll: 3,
+		pauseOnFocus: false,
+		pauseOnHover: true,
+		speed: 1200,
+		cssEase: 'ease',
+		draggable: true,
+		responsive: [
+			{
+			  breakpoint: 1024,
+			  settings: {
+				slidesToShow: 3,
+				slidesToScroll: 3,
+			  }
+			},
+			{
+			  breakpoint: 600,
+			  settings: {
+				slidesToShow: 2,
+				slidesToScroll: 2,
+			  }
+			},
+			{
+			  breakpoint: 480,
+			  settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+			  }
+			}
+		  ]
+	});
+
+	/* ========================================================================= */
 	/*	animation scroll js
 	/* ========================================================================= */
 

@@ -1,0 +1,59 @@
+certificate:
+  enable: true
+  bg_image: images/backgrounds/bg-rock.jpg
+  bg_image_webp: images/backgrounds/bg-rock.webp
+  certificate_item:
+    - name: EnterpriseDB Certified PostgreSQL 13 Associate
+      image: images/certificate/psql-essentials-v13.png
+      image_webp: images/certificate/psql-essentials-v13.webp
+    - name: AWS Certified Solutions Architect – Associate
+      image: images/certificate/aws-solutions-assoc.png
+      image_webp: images/certificate/aws-solutions-assoc.webp
+    - name: Linux Foundation Certified Engineer
+      image: images/certificate/lfce.png
+      image_webp: images/certificate/lfce.webp
+    - name: MikroTik Certified Network Associate
+      image: images/certificate/mtcna.png
+      image_webp: images/certificate/mtcna.webp
+    - name: MikroTik Certified Wireless Engineer
+      image: images/certificate/mtcwe.png
+      image_webp: images/certificate/mtcwe.webp
+    - name: MikroTik Certified User Management Engineer
+      image: images/certificate/mtcume.png
+      image_webp: images/certificate/mtcume.webp
+    - name: MikroTik Certified Traffic Control Engineer
+      image: images/certificate/mtctce.png
+      image_webp: images/certificate/mtctce.webp
+    - name: MikroTik Certified Routing Engineer
+      image: images/certificate/mtcre.png
+      image_webp: images/certificate/mtcre.webp
+    - name: MikroTik Certified IPv6 Engineer
+      image: images/certificate/mtcipv6e.png
+      image_webp: images/certificate/mtcipv6e.webp
+    - name: MikroTik Certified Security Engineer
+      image: images/certificate/mtcse.png
+      image_webp: images/certificate/mtcse.webp
+    - name: Certified Kubernetes Application Developer
+      image: images/certificate/ckad.png
+      image_webp: images/certificate/ckad.webp
+    - name: Certified Kubernetes Administrator
+      image: images/certificate/cka.png
+      image_webp: images/certificate/cka.webp
+    - name: Certified Kubernetes Security Specialist
+      image: images/certificate/cks.png
+      image_webp: images/certificate/cks.webp
+    - name: Oracle Certified Professional Oracle Linux 8 System Administrator
+      image: images/certificate/LIN8OCP.png
+      image_webp: images/certificate/LIN8OCP.webp
+    - name: Oracle Database 12c Administrator Certified Professional
+      image: images/certificate/oracle-professional.png
+      image_webp: images/certificate/oracle-professional.webp
+    - name: Oracle WebLogic Server 12c Certified Implementation Specialist
+      image: images/certificate/oracle-specialist.png
+      image_webp: images/certificate/oracle-specialist.webp
+    - name: Oracle Cloud Infrastructure Foundations 2021 Associate
+      image: images/certificate/102_Oracle_Cloud_Infrastructure_Foundations_Associate.png
+      image_webp: images/certificate/102_Oracle_Cloud_Infrastructure_Foundations_Associate.webp
+    - name: Oracle Enterprise Manager Certified Implementation Specialist (12c)
+      image: images/certificate/oracle-specialist.png
+      image_webp: images/certificate/oracle-specialist.webp
