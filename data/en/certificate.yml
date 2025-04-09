@@ -3,7 +3,7 @@ certificate:
   bg_image: images/backgrounds/bg-rock.jpg
   bg_image_webp: images/backgrounds/bg-rock.webp
   certificate_item:
-    - name: EnterpriseDB Certified PostgreSL 13 Associate
+    - name: EnterpriseDB Certified PostgreSQL 13 Associate
       image: images/certificate/psql-essentials-v13.png
       image_webp: images/certificate/psql-essentials-v13.webp
     - name: AWS Certified Solutions Architect – Associate

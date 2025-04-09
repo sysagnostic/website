@@ -72,34 +72,36 @@ jQuery(function ($) {
 
 	$("#certificates").slick({
 		infinite: true,
-		lazyLoad: 'ondemand',
 		arrows: false,
 		autoplay: true,
-		autoplaySpeed: 50,
-		slidesToShow: 5,
-		centerMode: true,
+		autoplaySpeed: 3600,
+		slidesToShow: 7,
+		slidesToScroll: 3,
 		pauseOnFocus: false,
-		pauseOnHover: false,
-		speed: 3000,
-		cssEase: 'linear',
-		draggable: false,
+		pauseOnHover: true,
+		speed: 1200,
+		cssEase: 'ease',
+		draggable: true,
 		responsive: [
 			{
 			  breakpoint: 1024,
 			  settings: {
 				slidesToShow: 3,
+				slidesToScroll: 3,
 			  }
 			},
 			{
 			  breakpoint: 600,
 			  settings: {
 				slidesToShow: 2,
+				slidesToScroll: 2,
 			  }
 			},
 			{
 			  breakpoint: 480,
 			  settings: {
 				slidesToShow: 1,
+				slidesToScroll: 1,
 			  }
 			}
 		  ]
