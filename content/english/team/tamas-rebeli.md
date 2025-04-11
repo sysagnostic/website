@@ -114,6 +114,7 @@ Certifications
 2023
 :   **[Oracle Weblogic Server 12c Certified Implementation Specialist](https://catalog-education.oracle.com/pls/certview/sharebadge?id=9ED7840B9DDB6CE3765B720EC789D00272CFF07D768A98CBC53C8DFD873E66EA)**; Oracle
 
+
 2022
 :   **[Oracle Cloud Infrastructure Foundations 2021 Associate](https://catalog-education.oracle.com/pls/certview/sharebadge?id=ACA04602712DDD19A5AF55474682BCBE3D948090DEDAC376A870A2D84731F8CC)**; Oracle
 
@@ -122,10 +123,46 @@ Certifications
 :   **[EnterpriseDB Certified PostgreSL 13 Associate](https://www.credly.com/badges/7df5f7e8-0b85-4750-9244-9dbd020e0677)**; EDB
 
 
-2016–2019
-:  **MikroTik Certified Engineer**; MikroTik
+2019
+:  **[MikroTik Certified Security Engineer (MTCSE)](https://mikrotik.com/certificateSearch)**; MikroTik
 
-MTCNA (1607NA396), MTCWE (1610WE057), MTCUME (1801UME1766), MTCTCE (1810TCE1908), MTCRE (1810RE3044), MTCIPv6E (1810IPv6E3060,  MTCSE (1905SE4060)
+    *Certification ID: 1905SE4060*
+
+
+2018
+:  **[MikroTik Certified User Management Engineer (MTCUME)](https://mikrotik.com/certificateSearch)**; MikroTik
+
+    *Certification ID: 1801UME1766*
+
+
+2018
+:  **[MikroTik Certified Traffic Control Engineer (MTCTCE)](https://mikrotik.com/certificateSearch)**; MikroTik
+
+    *Certification ID: 1810TCE1908*
+
+
+2018
+:  **[MikroTik Certified Routing Engineer (MTCRE)](https://mikrotik.com/certificateSearch)**; MikroTik
+
+    *Certification ID: 1810RE3044*
+
+
+2018
+:  **[MikroTik Certified IPv6 Engineer (MTCIPv6E)](https://mikrotik.com/certificateSearch)**; MikroTik
+
+    *Certification ID: 1810IPv6E3060*
+
+
+2016
+:  **[MikroTik Certified Network Associate (MTCNA)](https://mikrotik.com/certificateSearch)**; MikroTik
+
+    *Certification ID: 1607NA396*
+
+
+2016
+:  **[MikroTik Certified Wireless Engineer (MTCWE)](https://mikrotik.com/certificateSearch)**; MikroTik
+
+    *Certification ID: 1610WE057*
 
 
 2012
