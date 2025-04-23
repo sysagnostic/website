@@ -14,7 +14,7 @@ social:
 Experience
 ----------
 2025–now
-:   **DevSecOps Engineer**; Sysagnostic
+:   **Senior System Engineer**; Sysagnostic
         
         
 2018–now

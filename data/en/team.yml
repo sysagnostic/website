@@ -5,8 +5,8 @@ team:
     - name: Tamas Rebeli
       image_webp: images/team/tamas-rebeli.webp
       image: images/team/tamas-rebeli.jpg
-      designation: CEO/Founder/DevSecOps engineer
-      content: Computer Science Engineer MSc with 13+ years of consulting background. Seasoned Oracle and PostgreSQL database administrator and educator. Experienced systems engineer. Free and open-source software enthusiast.
+      designation: CEO/Founder/Senior System Engineer
+      content: Computer Science Engineer MSc with 13+ years of consulting background. Seasoned Oracle and PostgreSQL database administrator and educator. Experienced system engineer. Free and open-source software enthusiast.
       social :
         - icon: ti-user
           link: "/team/tamas-rebeli"
@@ -17,7 +17,7 @@ team:
     - name: David Lakatos
       image_webp: images/team/david-lakatos.webp
       image: images/team/david-lakatos.jpg
-      designation: CEO/Founder/DevSecOps engineer
+      designation: CEO/Founder/DevSecOps Engineer
       content: Computer Science Engineer MSc. 12+ years consulting background. Software developer, solution architect, DevSecOps engineer. Certified in Linux, K8s and AWS technologies. Linux, IT security and FOSS enthusiast.
       social :
         - icon: ti-user
