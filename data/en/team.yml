@@ -2,18 +2,6 @@ team:
   enable: true
   title: Our Team
   team_member :
-    - name: Tamas Rebeli
-      image_webp: images/team/tamas-rebeli.webp
-      image: images/team/tamas-rebeli.jpg
-      designation: CEO/Founder/Senior System Engineer
-      content: Computer Science Engineer MSc with 13+ years of consulting background. Seasoned Oracle and PostgreSQL database administrator and educator. Experienced system engineer. Free and open-source software enthusiast.
-      social :
-        - icon: ti-user
-          link: "/team/tamas-rebeli"
-        - icon: ti-linkedin
-          link: "https://www.linkedin.com/in/tam%C3%A1s-r%C3%A9beli-szab%C3%B3-69511469/"
-        - icon: ti-github
-          link: "https://github.com/rblst"
     - name: David Lakatos
       image_webp: images/team/david-lakatos.webp
       image: images/team/david-lakatos.jpg
@@ -30,3 +18,15 @@ team:
           link: "https://calendar.app.google/amRgwSG3aDCNSr679"
         - icon: ti-key
           link: "https://keys.openpgp.org/search?q=david.lakatos%40sysagnostic.com"
+    - name: Tamas Rebeli
+      image_webp: images/team/tamas-rebeli.webp
+      image: images/team/tamas-rebeli.jpg
+      designation: CEO/Founder/DevSecOps engineer
+      content: Computer Science Engineer MSc with 13+ years of consulting background. Seasoned Oracle and PostgreSQL database administrator and educator. Experienced systems engineer. Free and open-source software enthusiast.
+      social :
+        - icon: ti-user
+          link: "/team/tamas-rebeli"
+        - icon: ti-linkedin
+          link: "https://www.linkedin.com/in/tam%C3%A1s-r%C3%A9beli-szab%C3%B3-69511469/"
+        - icon: ti-github
+          link: "https://github.com/rblst"
