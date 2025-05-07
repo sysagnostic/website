@@ -13,7 +13,7 @@ social:
 Experience
 ----------
 2024-now
-:   **DevSecOps Engineer**; sysagnostic
+:   **CEO/Co-Founder/DevSecOps Engineer**; sysagnostic
 
     I assist our customers to reduce their license & operational costs by implementing & supporting free and open source cloud solutions.
 

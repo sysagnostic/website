@@ -14,7 +14,7 @@ social:
 Experience
 ----------
 2025–now
-:   **Senior System Engineer**; Sysagnostic
+:   **CEO/Co-Founder/Senior System Engineer**; Sysagnostic
         
         
 2018–now
