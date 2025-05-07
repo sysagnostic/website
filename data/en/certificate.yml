@@ -57,3 +57,6 @@ certificate:
     - name: Oracle Enterprise Manager Certified Implementation Specialist (12c)
       image: images/certificate/oracle-specialist.png
       image_webp: images/certificate/oracle-specialist.webp
+    - name: Enterprise OAuth 2.0 and OpenID Connect
+      image: images/certificate/oauth.png
+      image_webp: images/certificate/oauth.webp
