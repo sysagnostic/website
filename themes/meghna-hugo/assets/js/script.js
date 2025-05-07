@@ -74,14 +74,14 @@ jQuery(function ($) {
 		infinite: true,
 		arrows: false,
 		autoplay: true,
-		autoplaySpeed: 3600,
+		autoplaySpeed: 2000,
 		slidesToShow: 7,
 		slidesToScroll: 3,
 		pauseOnFocus: false,
-		pauseOnHover: true,
-		speed: 1200,
+		pauseOnHover: false,
+		speed: 3000,
 		cssEase: 'ease',
-		draggable: true,
+		draggable: false,
 		responsive: [
 			{
 			  breakpoint: 1024,
