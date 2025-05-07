@@ -13,7 +13,7 @@ social:
 Experience
 ----------
 2024-now
-:   **DevSecOps Engineer**; sysagnostic
+:   **CEO/Co-Founder/DevSecOps Engineer**; sysagnostic
 
     I assist our customers to reduce their license & operational costs by implementing & supporting free and open source cloud solutions.
 
@@ -83,6 +83,9 @@ Hungarian
 
 Certifications
 ----------
+2025
+:   **[Enterprise OAuth 2.0 and OpenID Connect](https://ude.my/UC-fb15c976-ffc3-4d86-9159-7a4c367d42a1)**; Udemy
+
 2024
 :   **[AWS Certified Solutions Architect – Associate](https://www.credly.com/badges/9220be86-abe5-49d6-918a-53586bbd7f2d)**; Amazon Web Services Training and Certification
 
