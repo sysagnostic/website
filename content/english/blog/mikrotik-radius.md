@@ -1,7 +1,7 @@
 ---
 draft: true
 author: "Tamas Rebeli"
-title: "Password-based access to your subnet with MikroTik and RADIUS"
+title: "Authenticated access to your MikroTik network"
 description: "Use your existing authentication server and MikroTik router to restrict access to certain servers." 
 publishDate: null
 date: 2025-05-11
