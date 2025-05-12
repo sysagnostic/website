@@ -1,7 +1,7 @@
 ---
 draft: true
 author: "Tamas Rebeli"
-title: "Password-based access to your servers with MikroTik and RADIUS"
+title: "Password-based access to your subnet with MikroTik and RADIUS"
 description: "Use your existing authentication server and MikroTik router to restrict access to certain servers." 
 publishDate: null
 date: 2025-02-22
@@ -95,7 +95,7 @@ comment="Hotspot network for restricted server access"
 ```
 We define an IP address 10.0.2.1 for the `ether4` port. 
 
-### Configuring HotSpot Gateway profile: network, login page and RADIUS
+### Configuring HotSpot Gateway profile: network, login page, and RADIUS
 Now we can configure the hotspot server itself.
 
 First we create a hotspot server profile (`my-restricted-subnet-hs-prof`).
@@ -116,7 +116,7 @@ Here we set up the login screen as the built-in HTML page under the `/flash/hots
 (The Network Access Server (NAS) in RADIUS parlance is the client connecting to the RADIUS server. In our case, it is the MikroTik router. The `nas-port-type` is an optional value that the hotspot server sends to indicate what type of physical port is used on the router to connect to RADIUS.)
 
 
-### Configuring HotSpot Gateway server: profile, interface, address pool and timeout
+### Configuring HotSpot Gateway server: profile, interface, address pool, and timeout
 Now we can create the HotSpot server itself.
 ```
 /ip hotspot
@@ -130,7 +130,7 @@ keepalive-timeout=5m
 
 Here we set up a HotSpot server with the profile and the address pool created earlier. We set up the HotSpot server to be available on interface `ether4`. We set up a timeout of 5 minutes to allow clients to stay out of reach for a while, before they get removed from by the HotSpot.
 
-## Setting up IP Walled Garden in HotSpot Gateway 
+### Setting up IP Walled Garden in HotSpot Gateway 
 We define a list of servers for restricted access.
 ```
 /ip firewall address-list
