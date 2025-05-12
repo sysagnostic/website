@@ -4,7 +4,8 @@ author: "Tamas Rebeli"
 title: "Password-based access to your subnet with MikroTik and RADIUS"
 description: "Use your existing authentication server and MikroTik router to restrict access to certain servers." 
 publishDate: null
-date: 2025-02-22
+date: 2025-05-11
+Image_webp: images/blog/mikrotik-radius-cover.webp
 image: images/blog/mikrotik-radius-cover.png
 tags:
   - network
@@ -93,7 +94,7 @@ interface=ether4 \
 network=10.0.2.0 \
 comment="Hotspot network for restricted server access"
 ```
-We define an IP address 10.0.2.1 for the `ether4` port. 
+We define an IP address `10.0.2.1` for the `ether4` port. 
 
 ### Configuring HotSpot Gateway profile: network, login page, and RADIUS
 Now we can configure the hotspot server itself.
