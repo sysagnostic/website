@@ -5,7 +5,7 @@ funfacts:
   counter_item:
     - title: "Certifications"
       icon: "ti-medall-alt"
-      count: 13
+      count: 14
     - title: "Years of Experience"
       icon: "ti-calendar"
       count: 25
