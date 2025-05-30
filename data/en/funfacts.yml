@@ -5,13 +5,13 @@ funfacts:
   counter_item:
     - title: "Certifications"
       icon: "ti-medall-alt"
-      count: 13
+      count: 14
     - title: "Years of Experience"
       icon: "ti-calendar"
       count: 25
     - title: "Supported Products"
       icon: "ti-unlock"
-      count: 8
+      count: 9
     - title: YubiKeys
       icon: "ti-shield"
       count: 4

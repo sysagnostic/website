@@ -6,7 +6,6 @@ portfolio:
       image: images/portfolio/kubernetes.png
       image_webp: images/portfolio/kubernetes.webp
       categories:
-        - L3 Support
         - Cost Reduction
         - Performance Optimization
         - Infrastructure Hardening
