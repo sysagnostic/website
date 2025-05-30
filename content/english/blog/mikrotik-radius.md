@@ -15,20 +15,20 @@ tags:
 In the spirit of zero-trust, you may want to protect certain, critical servers such as jump boxes inside your organization. If you already have a MikroTik router and an SSO solution with RADIUS capabilities in place, here is what you could do to implement password-based access.
 
 ## Access restriction
-Access to your selected group of servers is restricted at the IP level (Layer 3). For that solution to work, clients and servers must be in separate subnets (otherwise there is no routing between them), which is hopefully true in your network already.
+Access to your selected group of servers is restricted at the IP level (Layer 3). For this solution to work, clients and servers must be in separate subnets (otherwise there is no routing between them), which is hopefully true in your network already.
 
 Restricted access is implemented by the **IP Walled Garden** functionality of the HotSpot server in MikroTik.
 
 ## Authentication
-Users may access the servers by providing their username and password credentials. The authentication frontend is implemented by the [HotSpot Gateway](https://help.mikrotik.com/docs/spaces/ROS/pages/56459266/HotSpot+-+Captive+portal) (aka. captive portal) functionality in MikroTik.
+Users may access the restricted servers by providing their credentials. The authentication frontend is implemented by the [HotSpot Gateway](https://help.mikrotik.com/docs/spaces/ROS/pages/56459266/HotSpot+-+Captive+portal) (aka. captive portal) functionality in MikroTik.
 
-Users enter their credentials on the login screen of the HotSpot Gateway server, which are then transmitted over HTTPS. It requires a properly signed TLS certificate that browsers will accept (the easiest way is perhaps to go with [Let's Encrypt](https://letsencrypt.org/)). You may optionally assign a local DNS name to the IP address of the HotSpot Gateway and have the certificate issued for that DNS name.
+Users enter their user name and password credentials on the login screen of the HotSpot Gateway server, which are then transmitted over HTTPS. It requires a properly signed TLS certificate that browsers will accept (the easiest way is perhaps to go with [Let's Encrypt](https://letsencrypt.org/)). You may optionally assign a local DNS name to the IP address of the HotSpot Gateway and have the certificate issued for that DNS name.
 
 The HotSpot Gateway is also used to lease out IP address to client hosts. The HotSpot Gateway server will revoke access from clients with no network traffic coming from them (disconnected from the network) after a given timeout (keepalive-timeout).
 
 Identity management and the authentication backend is provided via a RADIUS server in your organization. Many authentication servers support the RADIUS protocol. The configuration presented below was tested using a Keycloak server, where RADIUS was embedded as a [plugin](https://github.com/vzakharchenko/keycloak-radius-plugin).
 
-The HotSpot server in MikroTik sends the credentials to the RADIUS server via the PAP method, which is a clear-text protocol on its own. The communication between the HotSpot server and the RADIUS server, however, happens over the **radsec protocol** (using TCP port 2083), which provides encryption via TLS.
+The HotSpot server in MikroTik sends the credentials to the RADIUS server via the PAP method, which is a clear-text protocol on its own. The communication between the HotSpot server and the RADIUS server, however, happens over the **RADSEC protocol** (using TCP port 2083), which provides encryption via TLS.
 
 ![Network topology](/images/blog/mikrotik-hotspot-radius.png)
 
@@ -56,24 +56,28 @@ secret=radsec \
 service=hotspot \
 timeout=3s
 ```
+We tell the HotSpot server that it can reach the RADIUS server at IP address 10.0.3.2, over the RADSEC protocol. 
+
 ```
 /radius incoming
 set accept=yes
 ```
+We enable the RADIUS server to send a request to our router to drop clients.
+
 ### Setting up SSL the for HTTPS login screen
 For HTTPS, the SSL service must be enabled.
 ```
 /ip service set www-ssl disabled=no
 ```
-A certificate needs to be added into the MikroTik router.
+A certificate and a key needs to be generated (not shown here), and added into the MikroTik router.
 
-We need to copy the certificate file into the router somehow. In this example we use SCP, but you can also use WinBox.
+We need to copy the file into the router. In this example we use SCP, but you can also use WinBox.
 ```
-scp hotspot.crt admin@10.0.1.1:hotspot.crt
+scp hotspot.crt admin@10.0.1.1:hotspot.p12
 ```
-We need to import the certificate from the file copied into the router.
+We need to import the certificate and key from the file copied into the router.
 ```
-/certificate import file-name=hotspot.crt
+/certificate import file-name=hotspot.p12
 ```
 ### Configuring IP addresses 
 First we create a pool of IP addresses (`my-restricted-subnet-hs-pool`) that will be used by the HotSpot Gateway server for assigning IPs to clients.
@@ -94,7 +98,7 @@ interface=ether4 \
 network=10.0.2.0 \
 comment="Hotspot network for restricted server access"
 ```
-We define an IP address `10.0.2.1` for the `ether4` port. 
+We define the IP address `10.0.2.1` for the `ether4` port. 
 
 ### Configuring HotSpot Gateway profile: network, login page, and RADIUS
 Now we can configure the hotspot server itself.
@@ -129,7 +133,7 @@ address-pool=my-restricted-subnet-hs-pool \
 keepalive-timeout=5m
 ```
 
-Here we set up a HotSpot server with the profile and the address pool created earlier. We set up the HotSpot server to be available on interface `ether4`. We set up a timeout of 5 minutes to allow clients to stay out of reach for a while, before they get removed from by the HotSpot.
+Here we set up a HotSpot server with the profile and the address pool created earlier. We set up the HotSpot server to be available on interface `ether4`. We set up a timeout of 5 minutes to allow clients to stay out of reach for a while, before they get removed by the HotSpot.
 
 ### Setting up IP Walled Garden in HotSpot Gateway 
 We define a list of servers for restricted access.
