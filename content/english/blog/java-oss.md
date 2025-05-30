@@ -1,10 +1,10 @@
 ---
-draft: true
+draft: false
 author: David Lakatos
 title: Migrating production Java applications to Eclipse Temurin
-description: null
-publishDate: null
-date: 2025-05-11
+description: Short summary of migration aspects on how Java applications may be migrated to a free and open-source runtime.
+publishDate: 2025-05-30
+date: 2025-05-30
 Image_webp: images/blog/java-oss-cover.webp
 image: images/blog/java-oss-cover.jpg
 tags:
