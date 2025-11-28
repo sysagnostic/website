@@ -1,0 +1,27 @@
+name: Generate CV PDF files
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate David Lakatos' CV
+        uses: sysagnostic/markdown-to-pdf@bugfix/ghworkspace
+        with:
+          input_path: content/english/team/david-lakatos-cv.md
+          images_dir: static/images/team
+          output_dir: public/team/david-lakatos/
+          build_html: true
+          theme: assets/css/pdf.css
+#      - name: Generate Tamas Rebeli's CV
+#        uses: sysagnostic/markdown-to-pdf@bugfix/ghworkspace
+#        with:
+#          input_path: content/english/team/tamas-rebeli.md
+#          images_dir: static/images/team
+#          output_dir: public/team/tamas-rebeli/
+#          build_html: false
