@@ -12,14 +12,21 @@ social:
 
 Experience
 ----------
+2025-now
+:   **CEO/Co-Founder/Building Automation Engineer**; Aptiot
+
+    Co-founder of Aptiot, building automation engineer with a focus on building energy consumption and office/living space optimization.
+
+    *Modbus, RS-485, IEEE 802.15.4/Thread, IPv6*
+
 2024-now
-:   **CEO/Co-Founder/DevSecOps Engineer**; sysagnostic
+:   **CEO/Co-Founder/DevSecOps Engineer**; Sysagnostic
 
     I assist our customers to reduce their license & operational costs by implementing & supporting free and open source cloud solutions.
 
     *AWS, OpenTofu, Java, Eclipse Temurin, Wildfly, AlmaLinux, Debian, OpenLDAP*
 
-2021-now
+2021-2025
 :   **Senior IT Consultant**; Great-IT
 
     Solution architect and lead consultant of software development and DevOps projects. Mentoring junior colleagues. Certain projects require my  business analyst skills to achieve customer satisfaction.

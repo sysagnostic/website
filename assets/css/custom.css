@@ -2358,6 +2358,9 @@ div.team-content h2:before {
   height: 6px;
   background-color: #9A8DD9;
 }
+img.rounded-circle {
+  max-width: 30%;
+}
 
 /* Definitions */
 div.team-content dt {
