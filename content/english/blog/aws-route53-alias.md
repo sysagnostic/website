@@ -3,7 +3,7 @@ draft: true
 author: "David Lakatos"
 title: "Advanced DNS capabilities of AWS Route 53 - Part 1"
 description: "Showcasing the power of Route 53's ALIAS RRtype."
-publishDate: 2025-12-11
+publishDate: null
 date: 2025-12-11
 Image_webp: images/blog/aws-route53-alias-cover.webp
 image: images/blog/aws-route53-alias-cover.png
