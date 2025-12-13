@@ -1,10 +1,10 @@
 ---
-draft: true
+draft: false
 author: "Tamas Rebeli"
 title: "Authenticated access to your MikroTik network"
 description: "Use your existing authentication server and MikroTik router to restrict access to certain servers." 
-publishDate: null
-date: 2025-05-11
+publishDate: 2025-12-13
+date: 2025-12-13
 Image_webp: images/blog/mikrotik-radius-cover.webp
 image: images/blog/mikrotik-radius-cover.png
 tags:
