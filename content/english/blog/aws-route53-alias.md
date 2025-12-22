@@ -14,9 +14,9 @@ tags:
   - cloud
 ---
 
-The Domain Name System is a true relic among all of the communication protocols out there. Its first appearance was back in 1983 related to RFC 882, but many-many extensions were built upon this dinosaur. This article series focuses on special features that differenciate DNS services today.
+The Domain Name System is a true relic among all of the communication protocols out there. Its first appearance was back in 1983 related to RFC 882, but many-many extensions were built upon this dinosaur. This article series focuses on special features that differentiate DNS services today.
 
-Let's imagine that you have built a single-page application (SPA) using your favourite JavaScript framework. The frontend is used by millions all over the World. It relies on a RESTful public API hosted by a 3rd party provider. Your application's build pipeline outputs static files like HTML, images, and generated JavaScript source code. Hosting the application requires only a geo-distributed Web server, so you decide to deploy it to the AWS CloudFront content delivery network (CDN).
+Let's imagine that you have built a single-page application (SPA) using your favourite JavaScript framework. The front-end is used by millions all over the World. It relies on a RESTful public API hosted by a 3rd party provider. Your application's build pipeline outputs static files like HTML, images, and generated JavaScript source code. Hosting the application requires only a geo-distributed Web server, so you decide to deploy it to the AWS CloudFront content delivery network (CDN).
 
 You prefer to enable users to access the application via both `example.com` and `www.example.com` domain names. Since this is a Web application, its conventional DNS name should be `www.example.com`. The following `example.com` zone records are created to route clients to the distribution:
 
@@ -42,7 +42,7 @@ The reason is that creating a `CNAME` record for the domain root `example.com.` 
 1. Install a Web server that HTTP redirects clients from `example.com` to `www.example.com` at the cost of extra infrastructure components, increased client load times due to the redirect, and lower system availability caused by extra point of failure.
 1. Migrate your DNS service to a provider that has a trick up its sleeve.
 
-Option 3 is a non-standard DNS service functionality called the `ALIAS` record type (aka. apex `CNAME` or flattened `CNAME`). Different DNS service providers may have differen implementations, or no implementation at all. An `ALIAS` record flattens the `CNAME` hierarchy abstracting away the real content of the queried zone. A client query is served in the following manner:
+Option 3 is a non-standard DNS service functionality called the `ALIAS` record type (aka. apex `CNAME` or flattened `CNAME`). Various DNS service providers may have different implementations, or no implementation at all. An `ALIAS` record flattens the `CNAME` hierarchy abstracting away the real content of the queried zone. A client query is served in the following manner:
 
 ![ALIAS RRtype resolution](/images/blog/aws-route53-alias.svg)
 
