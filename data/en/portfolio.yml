@@ -20,7 +20,7 @@ portfolio:
         - Cost Reduction
         - Performance Optimization
         - Infrastructure Hardening
-      content: Portable, extensible, open-source platform for managing containerized workloads and services, which facilitates both declarative configuration and automation.
+      content: Portable, extensible, open-source platform for managing containerized workloads and services with declarative configuration and automation.
       link: "https://kubernetes.io/"
     - name: WildFly
       image: images/portfolio/wildfly.png
