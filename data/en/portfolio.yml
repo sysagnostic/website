@@ -2,17 +2,6 @@ portfolio:
   enable: true
   title: We Love FOSS and Cloud
   portfolio_item :
-    - name: Open edX
-      image: images/portfolio/openedx.png
-      image_webp: images/portfolio/openedx.webp
-      categories:
-        - L3 Support
-        - DEV Support
-        - Cost Reduction
-        - Performance Optimization
-        - Infrastructure Hardening
-      content: Free and open-source LMS framework originally developed by MIT and Harvard under the edX initiative.
-      link: "https://openedx.org/"
     - name: Kubernetes
       image: images/portfolio/kubernetes.png
       image_webp: images/portfolio/kubernetes.webp
