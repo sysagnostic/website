@@ -1,6 +1,6 @@
 portfolio:
   enable: true
-  title: We Love FOSS and Cloud
+  title: Our Beloved Tech
   portfolio_item :
     - name: Kubernetes
       image: images/portfolio/kubernetes.png
@@ -11,7 +11,17 @@ portfolio:
         - Infrastructure Hardening
       content: Portable, extensible, open-source platform for managing containerized workloads and services with declarative configuration and automation.
       link: "https://kubernetes.io/"
-    - name: WildFly
+    - name: PostgreSQL
+      image: images/portfolio/postgresql.png
+      image_webp: images/portfolio/postgresql.webp
+      categories:
+        - L3 Support
+        - Cost Reduction
+        - Performance Optimization
+        - Infrastructure Hardening
+      content: Powerful & open-source object-relational database management system with over 35 years of active development.
+      link: "https://www.postgresql.org/"
+    - name: WildFly (Java)
       image: images/portfolio/wildfly.png
       image_webp: images/portfolio/wildfly.webp
       categories:
@@ -40,14 +50,6 @@ portfolio:
         - Infrastructure Hardening
       content: One of the longest-established operating systems based on the Linux kernel, introduced in 1993.
       link: "https://www.debian.org/"
-    - name: Rocky Linux
-      image: images/portfolio/rocky.png
-      image_webp: images/portfolio/rocky.webp
-      categories:
-        - Cost Reduction
-        - L3 Support
-        - Infrastructure Hardening
-      content: Open-source enterprise operating system designed to be 100% compatible with Red Hat Enterprise Linux®.
     - name: OpenTofu
       image: images/portfolio/opentofu.png
       image_webp: images/portfolio/opentofu.webp
@@ -63,14 +65,7 @@ portfolio:
         - Performance Optimization
       content: The world’s most comprehensive and broadly adopted cloud offering over 200 fully featured services.
       link: "https://aws.amazon.com/"
-    - name: Amazon EKS
-      image: images/portfolio/eks.png
-      image_webp: images/portfolio/eks.webp
-      categories :
-        - Cost Reduction
-      content: Fully managed K8S service that enables you to run Kubernetes in both AWS cloud and on-premises.
-      link: "https://www.debian.org/"
-    - name: Eclipse Temurin
+    - name: Eclipse Temurin (Java)
       image: images/portfolio/temurin.png
       image_webp: images/portfolio/temurin.webp
       categories:
@@ -79,26 +74,6 @@ portfolio:
         - L3 Support
       content: Oracle Hotspot alternative open-source Java SE build based upon OpenJDK. Formerly named AdoptOpenJDK.
       link: "https://adoptium.net/"
-    - name: OpenLDAP
-      image: images/portfolio/openldap.png
-      image_webp: images/portfolio/openldap.webp
-      categories:
-        - L3 Support
-        - Cost Reduction
-        - Performance Optimization
-        - Infrastructure Hardening
-      content: Open-source implementation of the Lightweight Directory Access Protocol.
-      link: "https://www.openldap.org/"
-    - name: PostgreSQL
-      image: images/portfolio/postgresql.png
-      image_webp: images/portfolio/postgresql.webp
-      categories:
-        - L3 Support
-        - Cost Reduction
-        - Performance Optimization
-        - Infrastructure Hardening
-      content: Powerful & open-source object-relational database management system with over 35 years of active development.
-      link: "https://www.postgresql.org/"
     - name: Proxmox VE
       image: images/portfolio/proxmox.png
       image_webp: images/portfolio/proxmox.webp
